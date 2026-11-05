@@ -1,12 +1,13 @@
 "use client";
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useCalm } from "@/lib/calm";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
 
 // A photo that wipes open once, then drifts inside its frame as the page moves past it.
 export function Parallax({ src, alt, className = "", priority = false, sizes = "100vw", speed = 9 }: { src: string; alt: string; className?: string; priority?: boolean; sizes?: string; speed?: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   const seen = useInView(ref, { once: true, amount: 0.1 });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [`-${speed}%`, `${speed}%`]);

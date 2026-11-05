@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ExtLink } from "@/components/ExtLink";
 import { ProgrammeFinder } from "@/components/ProgrammeFinder";
-import { CatalogueWall } from "@/components/art/CatalogueWall";
+import { BuildingViewer } from "@/components/art/BuildingViewer";
 import { Mosaic } from "@/components/art/Mosaic";
 import { StageHero, type StageOption } from "@/components/art/StageHero";
 import { WWW } from "@/data/site";
@@ -33,10 +33,6 @@ export default function Academics() {
     <>
       <StageHero title={["Find your programme"]} options={stage} />
 
-      <section aria-labelledby="wall-h" className="wrap section">
-        <h2 id="wall-h" className="t-section mb-8">The whole catalogue</h2>
-        <CatalogueWall />
-      </section>
 
 
       <section id="finder" aria-labelledby="finder-h" className="bg-mist">
@@ -47,6 +43,11 @@ export default function Academics() {
       </section>
 
       <Mosaic shots={[{ src: "/images/library.jpg", alt: "Rows of bookshelves in the SRMIST Central Library" }, { src: "/images/ideathon.jpg", alt: "Students on stage at the Inspira Ideathon at SRMIST" }, { src: "/images/computers.jpg", alt: "Students working at computers in an SRMIST lab" }]} />
+
+      <section aria-labelledby="tp-h" className="wrap section pb-0 md:pb-0">
+        <h2 id="tp-h" className="t-section mb-8">Tech Park</h2>
+        <BuildingViewer ids={["tp"]} />
+      </section>
 
       <section id="areas" aria-labelledby="areas-h" className="wrap section">
         <h2 id="areas-h" className="t-section">Study areas</h2>

@@ -1,5 +1,5 @@
 "use client";
-import { useReducedMotion } from "motion/react";
+import { useCalm } from "@/lib/calm";
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 
@@ -8,7 +8,7 @@ export type StageOption = { label: string; stat?: string; line: string; image: s
 // Full-screen landing stage. Each option repaints the background, the message and the action.
 export function StageHero({ title, options }: { title: string[]; options: StageOption[] }) {
   const root = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   const [cur, setCur] = useState(0);
   const [touched, setTouched] = useState(false);
   const o = options[cur];
@@ -45,7 +45,7 @@ export function StageHero({ title, options }: { title: string[]; options: StageO
         </h1>
       </div>
 
-      <div className="wrap w-full pb-5 pt-10">
+      <div className="wrap w-full pb-20 pt-10 md:pb-5">
         <div aria-live="polite" className="mb-5 flex flex-wrap items-end justify-between gap-4">
           <p key={cur} className="stage-line lede">{o.line}</p>
           <a href={o.href} onClick={() => { if (o.level !== undefined) window.dispatchEvent(new CustomEvent("srm-level", { detail: o.level })); }} className="btn btn-gold">{o.cta}</a>

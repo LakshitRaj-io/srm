@@ -555,8 +555,10 @@ try:
 except Exception as e:
     print("cpu render", e)
 scene.view_settings.view_transform = "Standard"
-scene.render.image_settings.file_format = "JPEG"
-scene.render.image_settings.quality = 88
+scene.render.image_settings.file_format = "PNG"
+scene.render.image_settings.color_mode = "RGBA"
+scene.render.film_transparent = True
+g_o.hide_render = True
 
 
 def shoot(name, target, pos, look, size=(1600, 1000)):
@@ -571,10 +573,10 @@ def shoot(name, target, pos, look, size=(1600, 1000)):
     bpy.ops.render.render(write_still=True)
 
 
-S = (1000, 625) if ONLY_RENDER_PREVIEW else (1800, 1125)
-shoot("ub.jpg", ub, (-96, -92, 4), (-4, 12, 30), S)
-shoot("tp.jpg", tp, (-68, -124, 2), (0, 8, 27), S)
-shoot("tp2.jpg", tp2, (-62, -74, 3), (3, 12, 27), S)
+S = (1000, 750) if ONLY_RENDER_PREVIEW else (1600, 1200)
+shoot("ub.png", ub, (-112, -190, 34), (0, 21, 30), S)
+shoot("tp.png", tp, (-96, -205, 30), (0, 8, 27), S)
+shoot("tp2.png", tp2, (-82, -170, 30), (0, 20, 29), S)
 
 if not ONLY_RENDER_PREVIEW:
     bpy.ops.file.pack_all()

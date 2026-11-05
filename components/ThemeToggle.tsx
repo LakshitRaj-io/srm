@@ -6,8 +6,8 @@ const KEY = "srm-theme";
 
 // Switching wipes the new theme across the page from the button that was pressed.
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("dark");
-  useEffect(() => { setTheme((document.documentElement.dataset.theme as Theme) ?? "dark"); }, []);
+  const [theme, setTheme] = useState<Theme>("light");
+  useEffect(() => { setTheme((document.documentElement.dataset.theme as Theme) ?? "light"); }, []);
 
   const toggle = (e: MouseEvent) => {
     const next: Theme = theme === "dark" ? "light" : "dark";

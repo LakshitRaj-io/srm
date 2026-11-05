@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ExtLink } from "@/components/ExtLink";
 import { Mosaic } from "@/components/art/Mosaic";
+import { BuildingViewer } from "@/components/art/BuildingViewer";
 import { RouteFinder } from "@/components/art/RouteFinder";
 import { ScrollSteps } from "@/components/art/ScrollSteps";
 import { StageHero, type StageOption } from "@/components/art/StageHero";
@@ -39,6 +40,11 @@ export default function Admissions() {
           <h2 id="steps-h" className="t-section mb-6">How to apply</h2>
           <ScrollSteps steps={steps} />
         </div>
+      </section>
+
+      <section aria-labelledby="ub-h" className="wrap section pb-0 md:pb-0">
+        <h2 id="ub-h" className="t-section mb-8">University Building</h2>
+        <BuildingViewer ids={["ub"]} />
       </section>
 
       <section id="routes" aria-labelledby="routes-h" className="wrap section">

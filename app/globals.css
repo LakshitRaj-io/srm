@@ -58,19 +58,11 @@
   .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 0.875rem; }
   .field { display: block; margin-top: 0.3rem; width: 100%; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 0.625rem; padding: 0.6rem 0.75rem; }
 
-  .cell { aspect-ratio: 1; border-radius: 3px; transition: transform 0.15s; }
-  .cell:hover { transform: scale(1.25); }
-  .cell.is-pinned { outline: 2px solid var(--accent); outline-offset: 2px; transform: scale(1.25); }
-  .wall-in .cell { animation: cell-in 0.35s backwards; animation-delay: calc(var(--i) * 1.6ms); }
 
   .orbit-ring { animation: spin 90s linear infinite; }
   .orbit-node { animation: spin 90s linear infinite reverse; }
   .orbit:hover .orbit-ring, .orbit:hover .orbit-node, .orbit:focus-within .orbit-ring, .orbit:focus-within .orbit-node { animation-play-state: paused; }
 
-  .mask-sheet { background: #fff; mix-blend-mode: screen; }
-  .mask-text { color: #000; }
-  [data-theme="dark"] .mask-sheet { background: #000; mix-blend-mode: multiply; }
-  [data-theme="dark"] .mask-text { color: #fff; }
 
   .stage { --mx: 0; --my: 0; }
   .stage-bg { transform: translate3d(calc(var(--mx) * -22px), calc(var(--my) * -16px), 0); transition: transform 0.4s ease-out; }
@@ -82,7 +74,6 @@
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-@keyframes cell-in { from { transform: scale(0); } }
 @keyframes slam { from { transform: translateY(105%); } }
 @keyframes line-in { from { opacity: 0; transform: translateY(8px); } }
 
@@ -98,6 +89,9 @@ html:not([data-js]) .fx-pin { position: relative !important; top: 0 !important; 
 html:not([data-js]) .fx-show { opacity: 1 !important; visibility: visible !important; transform: none !important; clip-path: none !important; }
 html:not([data-js]) .fx-hide { display: none !important; }
 html:not([data-js]) .fx-scroll { overflow-x: auto !important; transform: none !important; }
+
+/* Devices flagged by the layout script: no decorative animation or heavy compositing. */
+html[data-lite] *, html[data-lite] *::before, html[data-lite] *::after { animation: none !important; transition: none !important; backdrop-filter: none !important; }
 
 /* SRM Guide */
 .guide-panel { animation: guide-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
@@ -143,6 +137,6 @@ html[data-js] .bento:not(.bento-in) .tile { opacity: 0; }
   .guide-panel, .guide-wait, .coin, .orbit3d-spin, .cover-progress, .bento-in .tile { animation: none; }
   .cover-card, .cover-shade, .tile { transition: none; }
   html { scroll-behavior: auto; }
-  .orbit-ring, .orbit-node, .slam, .wall-in .cell, .stage-line { animation: none; }
+  .orbit-ring, .orbit-node, .slam, .stage-line { animation: none; }
   .btn, .stage-bg, .stage-img { transition: none; }
 }

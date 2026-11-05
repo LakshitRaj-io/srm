@@ -15,9 +15,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-IN" data-theme="dark" suppressHydrationWarning className={geist.variable}>
+    <html lang="en-IN" data-theme="light" suppressHydrationWarning className={geist.variable}>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.dataset.js="1";try{var t=localStorage.getItem("srm-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}` }} />
+        <script dangerouslySetInnerHTML={{ __html: `var d=document.documentElement,n=navigator,c=n.connection;d.dataset.js="1";if((c&&c.saveData)||n.deviceMemory<=2||n.hardwareConcurrency<=2)d.dataset.lite="1";try{var t=localStorage.getItem("srm-theme");d.dataset.theme=t||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(e){}` }} />
       </head>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-tint focus:p-3 focus:font-bold">Skip to content</a>

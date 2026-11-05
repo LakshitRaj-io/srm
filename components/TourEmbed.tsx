@@ -40,7 +40,7 @@ export function TourEmbed() {
             <Image src="/images/campus.jpg" alt="Aerial view of the SRMIST Kattankulathur campus beside a lake" fill sizes="(min-width:1280px) 1200px, 100vw" className="object-cover opacity-70" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10" />
             <div className="absolute inset-x-0 bottom-0 p-5 md:p-8">
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">360° · Official</p>
+              <p className="text-sm font-medium text-white/85">Official 360° tour</p>
               <p className="mt-2 max-w-xl text-2xl font-semibold leading-tight tracking-tight md:text-3xl">Walk the Kattankulathur campus in panoramas, from your browser.</p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <button type="button" onClick={start} className="btn btn-gold">Start the virtual tour</button>

@@ -1,5 +1,6 @@
 "use client";
-import { useInView, useReducedMotion } from "motion/react";
+import { useCalm } from "@/lib/calm";
+import { useInView } from "motion/react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 
@@ -28,7 +29,7 @@ const offset = (i: number, cur: number) => {
 // and is off entirely with reduced motion. Swipe, arrow keys, the buttons or a side card move it.
 export function CampusFilm() {
   const root = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   const [cur, setCur] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [hold, setHold] = useState(false); // hover or focus inside

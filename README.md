@@ -94,13 +94,12 @@ npx vercel --prod
 
 ## Campus models
 
-The homepage opens on one continuous scroll (`components/art/MaskHero.tsx`, scene in `lib/campus-scene.ts`). The SRM letters open onto the University Building, then the same camera moves past Tech Park and Tech Park 2 to an overview that dissolves into the page.
-
-The models are built in Blender from official SRMIST photographs. Source scene, scripts, references and known limits are in `assets-src/blender`. Exports are in `public/models`; phones load the `-sm` versions, which have the same geometry with smaller textures. Reduced motion and browsers without WebGL get Blender renders of the same models.
+`components/art/BuildingViewer.tsx` shows a Blender render first, then swaps to the live model (`lib/campus-scene.ts`) when the device is capable and the viewer is near the screen. Low-end devices, data saver and reduced motion keep the render and offer a "View in 3D" button. Turning stops before the rear, which is undocumented. Source scene, scripts, references and limits are in `assets-src/blender`; exports are in `public/models`, and phones load the `-sm` versions.
 
 ## Responsive, motion and browser support
 
-- Long scroll scenes are shortened on phones, and each has a skip link. The campus gallery is a 3D carousel that advances every few seconds and never takes over page scrolling. It pauses on hover, focus, touch and when off screen, has a pause button, swipe, previous/next buttons and arrow keys, and does not autoplay with reduced motion.
+- The campus gallery is a 3D carousel that advances every few seconds and never takes over page scrolling. It pauses on hover, focus, touch and when off screen, has a pause button, swipe, previous/next buttons and arrow keys, and does not autoplay with reduced motion.
+- A small script in `app/layout.tsx` sets `data-lite` on devices with little memory, few cores or data saver on, which turns off decorative motion. The theme follows the system until a visitor chooses.
 - `prefers-reduced-motion` replaces pinned and animated scenes with static layouts.
 - Without JavaScript, pinned scenes collapse to ordinary sections (see the `fx-*` classes in `app/globals.css`) and the Guide is not shown.
 - Viewport heights use `--vh` (`svh` with a `vh` fallback). Targets: current Chrome, Edge, Firefox and Safari.

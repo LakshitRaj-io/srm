@@ -1,5 +1,6 @@
 "use client";
-import { useInView, useReducedMotion } from "motion/react";
+import { useCalm } from "@/lib/calm";
+import { useInView } from "motion/react";
 import Image from "next/image";
 import { useRef, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { homeStats } from "@/data/site";
@@ -10,7 +11,7 @@ const stat = (label: string) => homeStats.find(([, l]) => l === label)![0];
 // A tile that flips up into place and leans toward a mouse pointer. Its number sits on a raised
 // layer (translateZ), so the tilt shows real depth. Touch and reduced motion get a still tile.
 function Tile({ i, className = "", bg, children }: { i: number; className?: string; bg?: ReactNode; children: ReactNode }) {
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   const move = (e: PointerEvent<HTMLLIElement>) => {
     if (reduced || e.pointerType !== "mouse") return;
     const el = e.currentTarget;
@@ -42,35 +43,6 @@ function Num({ v, className = "" }: { v: string; className?: string }) {
 }
 const Label = ({ children, className = "text-ink-soft" }: { children: ReactNode; className?: string }) => <p className={`text-[0.95rem] font-medium ${className}`}>{children}</p>;
 
-function Coin() {
-  return (
-    <div aria-hidden="true" className="[perspective:600px]">
-      <div className="coin">
-        {[-4, -2, 0, 2, 4].map((z) => <span key={z} className="coin-edge" style={{ "--z": `${z}px` } as CSSProperties} />)}
-        <span className="coin-face" style={{ transform: "translateZ(5px)" }}><Image src="/images/srm-crest.png" alt="" width={96} height={96} className="h-[82%] w-[82%]" /></span>
-        <span className="coin-face coin-back" style={{ transform: "rotateY(180deg) translateZ(5px)" }}><span className="text-2xl font-bold tracking-tight">1985</span></span>
-      </div>
-    </div>
-  );
-}
-
-function OrbitRing() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute -right-10 top-1/2 h-56 w-56 -translate-y-1/2 [perspective:700px] md:right-4">
-      <div className="orbit3d absolute inset-0">
-        <div className="absolute inset-0 rounded-full border border-accent/40" />
-        <div className="absolute inset-[18%] rounded-full border border-accent/25" />
-        <div className="orbit3d-spin absolute inset-0">
-          {[0, 60, 130, 200, 260, 320].map((a) => (
-            <span key={a} className="absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent" style={{ transform: `rotate(${a}deg) translateX(7rem)` }} />
-          ))}
-        </div>
-      </div>
-      <div className="absolute left-1/2 top-1/2 h-14 w-14 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_35%_30%,#9cc2ff,#0c4da2_60%,#071f45)] shadow-[0_10px_30px_rgb(12_77_162/0.5)]" />
-    </div>
-  );
-}
-
 // SRMIST in numbers as a bento of 3D tiles. Every figure comes from data/site.ts.
 export function NumbersBento() {
   const ref = useRef<HTMLUListElement>(null);
@@ -86,7 +58,7 @@ export function NumbersBento() {
       <Tile i={1} className="col-span-2" bg={<div className="absolute inset-0 bg-tint" />}>
         <div className="flex h-full items-center justify-between gap-4">
           <div><Num v={stat("Established")} className="text-[clamp(3rem,6vw,5rem)]" /><Label className="mt-2">Established, Kattankulathur</Label></div>
-          <Coin />
+          <Image src="/images/srm-crest.png" alt="" width={72} height={72} className="h-16 w-16 shrink-0" />
         </div>
       </Tile>
 
@@ -110,7 +82,7 @@ export function NumbersBento() {
         <div><Num v={stat("Departments")} className="text-[clamp(1.9rem,4vw,3.25rem)]" /><Label className="mt-2">Departments</Label></div>
       </Tile>
 
-      <Tile i={6} className="col-span-2" bg={<div className="absolute inset-0 bg-tint"><OrbitRing /></div>}>
+      <Tile i={6} className="col-span-2" bg={<div className="absolute inset-0 bg-tint" />}>
         <p className="max-w-[60%] text-ink-soft">Students from abroad, on one campus.</p>
         <div><Num v={stat("International students")} className="text-[clamp(2.75rem,5vw,4rem)]" /><Label className="mt-2">International students</Label></div>
       </Tile>

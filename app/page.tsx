@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CampaignNotice } from "@/components/CampaignNotice";
+import { ProgrammeAtlas } from "@/components/ProgrammeAtlas";
+import { BuildingViewer } from "@/components/art/BuildingViewer";
 import { ExtLink } from "@/components/ExtLink";
-import { CatalogueWall } from "@/components/art/CatalogueWall";
 import { CampusFilm } from "@/components/art/CampusFilm";
 import { DoorStack } from "@/components/art/DoorStack";
-import { ExpandImage } from "@/components/art/ExpandImage";
-import { MaskHero } from "@/components/art/MaskHero";
 import { NumbersBento } from "@/components/art/NumbersBento";
 import { Parallax } from "@/components/art/Parallax";
 import { RankBoard } from "@/components/art/RankBoard";
@@ -20,19 +19,45 @@ const areas = ["Engineering & Technology", "Medicine", "Dentistry", "Management"
 export default function Home() {
   return (
     <>
-      <MaskHero />
+      <section className="on-dark relative isolate flex min-h-[calc(var(--vh)*100-var(--hdr))] items-end overflow-hidden bg-black text-white">
+        <Image src="/images/campus.jpg" alt="Aerial view of the SRMIST Kattankulathur campus beside a lake" fill priority sizes="100vw" className="-z-10 object-cover" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/45 via-45% to-transparent" />
+        <div className="wrap w-full pb-14 pt-24 md:pb-20">
+          <h1 className="t-hero">Learn. Leap. Lead.</h1>
+          <p className="lede mt-4">SRM Institute of Science and Technology is a multidisciplinary university, founded in 1985 and accredited A++ by NAAC.</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="/academics#finder" className="btn btn-gold">Find a programme</Link>
+            <Link href="/admissions" className="btn btn-line">Admissions 2027</Link>
+          </div>
+        </div>
+      </section>
       <CampaignNotice />
 
       <DoorStack />
+
+      <section aria-labelledby="programmes" className="wrap section pt-0 md:pt-0">
+        <h2 id="programmes" className="t-section">429 programmes. Find your direction.</h2>
+        <p className="lede mb-8 mt-4">Search the official catalogue, then open any programme for its details.</p>
+        <ProgrammeAtlas />
+      </section>
+
+      <section id="campus-3d" aria-labelledby="campus-3d-h" className="bg-surface">
+        <div className="wrap section pt-0 md:pt-0">
+          <h2 id="campus-3d-h" className="t-section">The campus in 3D</h2>
+          <p className="lede mb-8 mt-4">Three landmarks, modelled from official images. Drag to turn.</p>
+          <BuildingViewer ids={["ub", "tp", "tp2"]} />
+        </div>
+      </section>
+
       <CampusFilm />
 
       <section aria-labelledby="tour-entry" className="wrap pb-16">
         <Link href="/campus-tour" className="group on-dark relative isolate flex min-h-64 flex-col justify-end overflow-hidden rounded-2xl bg-black p-6 text-white md:min-h-80 md:p-10">
           <Image src="/images/walkway.jpg" alt="" fill sizes="(min-width:1280px) 1200px, 100vw" className="-z-10 object-cover opacity-60 transition-transform duration-700 group-hover:scale-105" />
           <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-tr from-black/85 via-black/40 to-transparent" />
-          <span className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">360° · Official SRMIST tour</span>
+          <span className="text-sm font-medium text-white/85">Official 360° tour</span>
           <span id="tour-entry" className="t-section mt-2 block max-w-2xl">Walk the campus from anywhere</span>
-          <span className="mt-4 inline-flex w-fit items-center gap-2 rounded-xl bg-white px-4 py-2.5 font-medium text-black">Start the virtual tour <span aria-hidden="true">→</span></span>
+          <span className="mt-4 inline-flex w-fit items-center gap-2 rounded-xl bg-white px-4 py-2.5 font-medium text-black">Start the virtual tour</span>
         </Link>
       </section>
 
@@ -60,12 +85,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-labelledby="wall" className="wrap section">
-        <h2 id="wall" className="t-section">429 programmes, one wall</h2>
-        <p className="lede mb-8 mt-4">Each cell is a real programme. Move across the wall to read them, or pick a level.</p>
-        <CatalogueWall />
-      </section>
-
       <section aria-labelledby="areas" className="bg-tint">
         <div className="wrap section pb-10">
           <h2 id="areas" className="t-section">Thirteen ways in</h2>
@@ -77,7 +96,6 @@ export default function Home() {
           <Link href="/academics#finder" className="btn btn-blue mt-8">Find a programme</Link>
         </div>
       </section>
-      <ExpandImage src="/images/hostel.jpg" alt="SRMIST hostel buildings beside the campus lake" caption="Hostels by the lake" />
 
       <section aria-labelledby="news" className="wrap section">
         <div className="flex flex-wrap items-end justify-between gap-3">

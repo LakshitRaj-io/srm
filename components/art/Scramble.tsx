@@ -1,5 +1,6 @@
 "use client";
-import { useInView, useReducedMotion } from "motion/react";
+import { useCalm } from "@/lib/calm";
+import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 // Digits riffle like a departures board, then land on the real value. The real value is
@@ -7,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 export function Scramble({ value, className = "" }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const seen = useInView(ref, { once: true, amount: 0.6 });
-  const reduced = useReducedMotion();
+  const reduced = useCalm();
   const [text, setText] = useState(value);
 
   useEffect(() => {

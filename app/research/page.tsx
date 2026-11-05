@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ExtLink } from "@/components/ExtLink";
+import { BuildingViewer } from "@/components/art/BuildingViewer";
 import { Mosaic } from "@/components/art/Mosaic";
 import { Orbit } from "@/components/art/Orbit";
 import { Scramble } from "@/components/art/Scramble";
@@ -48,6 +49,11 @@ export default function Research() {
           <h2 id="cen-h" className="t-section mb-8">Explore the centres</h2>
           <Orbit />
         </div>
+      </section>
+
+      <section aria-labelledby="tp2-h" className="wrap section pb-0 md:pb-0">
+        <h2 id="tp2-h" className="t-section mb-8">Tech Park 2</h2>
+        <BuildingViewer ids={["tp2"]} />
       </section>
 
       <section id="record" aria-labelledby="rec-h" className="on-dark bg-night text-white">
