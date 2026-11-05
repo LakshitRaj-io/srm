@@ -3,13 +3,13 @@ import Link from "next/link";
 import { CampaignNotice } from "@/components/CampaignNotice";
 import { ExtLink } from "@/components/ExtLink";
 import { CatalogueWall } from "@/components/art/CatalogueWall";
+import { CampusFilm } from "@/components/art/CampusFilm";
 import { DoorStack } from "@/components/art/DoorStack";
+import { ExpandImage } from "@/components/art/ExpandImage";
 import { MaskHero } from "@/components/art/MaskHero";
 import { Parallax } from "@/components/art/Parallax";
 import { RankBoard } from "@/components/art/RankBoard";
 import { Scramble } from "@/components/art/Scramble";
-import { ScrubText } from "@/components/art/ScrubText";
-import { Ticker } from "@/components/art/Ticker";
 import { WWW, accreditations, homeStats, news } from "@/data/site";
 
 export const metadata: Metadata = { title: { absolute: "SRMIST redesign concept: Learn. Leap. Lead." }, description: "Start here for SRMIST admissions, programmes and research." };
@@ -20,35 +20,30 @@ export default function Home() {
   return (
     <>
       <MaskHero />
-      <Ticker items={["NAAC A++", "NIRF 2025 University 11", "429 programmes", "Founded 1985", "Admissions open 2027"]} />
       <CampaignNotice />
 
-      <section aria-labelledby="facts" className="wrap section">
-        <h2 id="facts" className="sr-only">SRMIST at a glance</h2>
-        <ScrubText text="Since 1985, SRMIST has grown to more than 50,000 students and 3,200 academicians, on a green campus of over 250 acres." marks={["1985,", "50,000", "3,200", "250"]} className="font-display text-[clamp(3rem,8.4vw,8.5rem)] font-extrabold uppercase leading-[1.08]" />
-      </section>
-
       <DoorStack />
+      <CampusFilm />
 
-      <section aria-labelledby="bento" className="relative z-10 border-t-[3px] border-black bg-white">
+      <section aria-labelledby="bento" className="bg-surface">
         <div className="wrap section">
-          <h2 id="bento" className="t-section">University in numbers</h2>
-          <dl className="mt-8 border-b-[3px] border-black">
+          <h2 id="bento" className="t-section">SRMIST in numbers</h2>
+          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-5">
             {homeStats.map(([v, l]) => (
-              <div key={l} className="grid items-baseline gap-x-6 border-t-[3px] border-black py-2 transition-colors hover:bg-gold md:grid-cols-12">
-                <dd className="font-display text-[clamp(3.75rem,9vw,9rem)] font-extrabold leading-[1] text-blue md:col-span-5"><Scramble value={v} /></dd>
-                <dt className="font-display text-[clamp(1.75rem,4vw,4rem)] font-extrabold uppercase leading-[1] md:col-span-7">{l}</dt>
+              <div key={l} className="bg-surface p-5 md:p-6">
+                <dd className="text-[clamp(1.75rem,3vw,2.5rem)] font-semibold leading-none tracking-tight"><Scramble value={v} /></dd>
+                <dt className="mt-2 text-[0.95rem] text-ink-soft">{l}</dt>
               </div>
             ))}
           </dl>
         </div>
       </section>
 
-      <section aria-labelledby="ranks" className="on-dark bg-black text-white">
+      <section aria-labelledby="ranks" className="on-dark bg-night text-white">
         <div className="wrap section grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <h2 id="ranks" className="t-section">Ranked and accredited</h2>
-            <p className="mt-6 font-display text-[clamp(7rem,16vw,15rem)] font-extrabold leading-[0.8] text-gold">A++</p>
+            <p className="mt-6 text-6xl font-semibold tracking-tight text-gold">A++</p>
             <p className="mt-3 font-semibold">NAAC grade, 4th cycle, valid 16.06.2024 to 15.06.2031</p>
             <p className="mt-6 text-[0.95rem] text-white/85">Also accredited or recognised by: {accreditations.join(", ")}.</p>
           </div>
@@ -66,29 +61,29 @@ export default function Home() {
         <CatalogueWall />
       </section>
 
-      <section aria-labelledby="areas" className="border-t-[3px] border-black bg-gold">
+      <section aria-labelledby="areas" className="bg-tint">
         <div className="wrap section pb-10">
           <h2 id="areas" className="t-section">Thirteen ways in</h2>
-          <ul className="mt-6 flex flex-wrap gap-[3px] border-[3px] border-black bg-black">
+          <ul className="mt-8 flex flex-wrap gap-2">
             {areas.map((a) => (
-              <li key={a} className="grow bg-white"><Link href="/academics#finder" className="block p-3 font-display text-[clamp(1.75rem,3.7vw,3.75rem)] font-extrabold uppercase leading-[1] hover:bg-black hover:text-gold">{a}</Link></li>
+              <li key={a}><Link href="/academics#finder" className="block rounded-full border border-line bg-surface px-4 py-2 font-medium hover:border-accent hover:text-accent">{a}</Link></li>
             ))}
-            <li className="grow bg-blue text-white"><Link href="/academics#finder" className="block p-3 font-display text-[clamp(1.75rem,3.7vw,3.75rem)] font-extrabold uppercase leading-[1] hover:bg-black hover:text-gold">Find a programme</Link></li>
           </ul>
+          <Link href="/academics#finder" className="btn btn-blue mt-8">Find a programme</Link>
         </div>
       </section>
-      <Parallax src="/images/techpark.jpg" alt="Students walking past the colourful Tech Park building on the SRMIST campus" className="h-[60svh] border-y-[3px] border-black" />
+      <ExpandImage src="/images/hostel.jpg" alt="SRMIST hostel buildings beside the campus lake" caption="Hostels by the lake" />
 
       <section aria-labelledby="news" className="wrap section">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2 id="news" className="t-section">From the campus</h2>
           <ExtLink className="link" href={`${WWW}/news`} showHost={false}>All news</ExtLink>
         </div>
-        <div className="mt-8 grid gap-[3px] border-[3px] border-black bg-black md:grid-cols-2">
+        <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
           {news.map((n) => (
-            <article key={n.title} className="flex min-h-56 flex-col bg-white">
-              {n.image ? <Parallax src={n.image} alt={n.alt!} className="h-56" /> : null}
-              <h3 className="p-5 text-3xl leading-none md:text-4xl">{n.title}</h3>
+            <article key={n.title} className="flex min-h-56 flex-col bg-surface">
+              {n.image ? <Parallax src={n.image} alt={n.alt!} className="h-56 rounded-none" /> : null}
+              <h3 className="p-5 text-xl leading-snug">{n.title}</h3>
             </article>
           ))}
         </div>

@@ -2,7 +2,6 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
-import { Seal } from "./Seal";
 
 const IMG = { src: "/images/campus.jpg", alt: "Aerial view of the SRMIST Kattankulathur campus beside a lake" };
 
@@ -42,19 +41,19 @@ export function MaskHero() {
           <Image {...IMG} fill priority sizes="100vw" className="object-cover" />
         </motion.div>
         <motion.div style={{ opacity: copy }} className="absolute inset-0 bg-black/55" />
-        <motion.div aria-hidden="true" style={{ opacity: sheet }} className="absolute inset-0 grid place-items-center overflow-hidden bg-white mix-blend-screen">
-          <motion.span style={{ scale: zoom }} className="block font-display text-[min(40vw,78svh)] font-extrabold leading-[0.8] text-black">SRM</motion.span>
+        <motion.div aria-hidden="true" style={{ opacity: sheet }} className="absolute inset-0 grid place-items-center overflow-hidden mask-sheet">
+          <motion.span style={{ scale: zoom }} className="block font-display text-[min(36vw,56svh)] font-bold leading-[0.9] tracking-[-0.05em] mask-text">SRM</motion.span>
         </motion.div>
         <motion.div aria-hidden="true" style={{ opacity: sheet }} className="absolute inset-x-0 bottom-5 z-10">
-          <div className="wrap flex items-end justify-between gap-4 text-black">
-            <p className="font-display text-2xl font-extrabold uppercase leading-none md:text-4xl">Institute of Science and Technology</p>
-            <p className="shrink-0 font-bold">Scroll to enter</p>
+          <div className="wrap flex items-end justify-between gap-4 mask-text">
+            <p className="text-lg font-semibold md:text-2xl">Institute of Science and Technology</p>
+            <p className="shrink-0 text-sm font-medium">Scroll to enter</p>
           </div>
         </motion.div>
         <motion.div style={{ opacity: copy, y: copyY }} className="absolute inset-0 flex items-center">
           <div className="wrap flex w-full items-end justify-between gap-6">
             <div><Copy /></div>
-            <div className="hidden md:block"><Seal size="13rem" /></div>
+            <Image src="/images/srm-crest.png" alt="" width={160} height={160} className="hidden h-24 w-24 md:block" />
           </div>
         </motion.div>
       </div>

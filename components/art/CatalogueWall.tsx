@@ -8,7 +8,7 @@ const GROUPS = [
   { key: "Undergraduate", label: "Undergraduate", color: "#0c4da2" },
   { key: "Post Graduate", label: "Postgraduate", color: "#6f9bd8" },
   { key: "Ph.D", label: "Ph.D.", color: "#e4b316" },
-  { key: "other", label: "Other", color: "#ffffff" },
+  { key: "other", label: "Other", color: "#b9c4d4" },
 ];
 const groupOf = (p: P) => (GROUPS.find((g) => p.level.includes(g.key)) ?? GROUPS[3]).key;
 const rank = (p: P) => GROUPS.findIndex((g) => g.key === groupOf(p));
@@ -44,35 +44,35 @@ export function CatalogueWall() {
   return (
     <div className="grid gap-6 lg:grid-cols-12">
       <div ref={ref} className="lg:col-span-8">
-        <div aria-hidden="true" className={`grid gap-[3px] border-[3px] border-black bg-black p-[3px] ${seen ? "wall-in" : ""}`} style={{ gridTemplateColumns: "repeat(auto-fill, minmax(clamp(1.1rem, 2.3vw, 1.9rem), 1fr))" }}
+        <div aria-hidden="true" className={`grid gap-[3px] rounded-2xl border border-line p-3 ${seen ? "wall-in" : ""}`} style={{ gridTemplateColumns: "repeat(auto-fill, minmax(clamp(1.1rem, 2.3vw, 1.9rem), 1fr))" }}
           onMouseLeave={() => setHeld(false)}
           onMouseMove={(e) => { const i = (e.target as HTMLElement).dataset.i; if (i) { setHeld(true); setCur(+i); } }}>
           {ALL.map((x, i) => {
             const g = groupOf(x);
             const dim = active && active !== g;
-            return <div key={x.url} data-i={i} className="cell" style={{ "--i": i, background: i === cur ? "#000" : dim ? "#262626" : GROUPS.find((y) => y.key === g)!.color, boxShadow: i === cur ? "inset 0 0 0 4px #fff" : undefined } as React.CSSProperties} />;
+            return <div key={x.url} data-i={i} className="cell" style={{ "--i": i, background: i === cur ? "var(--fg)" : dim ? "var(--line)" : GROUPS.find((y) => y.key === g)!.color } as React.CSSProperties} />;
           })}
         </div>
         <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Highlight programmes by level">
           {GROUPS.map((g) => (
-            <button key={g.key} type="button" aria-pressed={active === g.key} onClick={() => pick(g.key)} className={`btn min-h-11 ${active === g.key ? "bg-black text-white" : "bg-white text-black"}`}>
-              <span aria-hidden="true" className="h-4 w-4 border-2 border-black" style={{ background: g.color }} />
+            <button key={g.key} type="button" aria-pressed={active === g.key} onClick={() => pick(g.key)} className={`btn btn-line min-h-10 text-sm ${active === g.key ? "bg-tint" : ""}`}>
+              <span aria-hidden="true" className="h-3 w-3 rounded-sm" style={{ background: g.color }} />
               {g.label} {counts[g.key]}
             </button>
           ))}
         </div>
       </div>
       <div className="lg:col-span-4">
-        <div className="flex h-full min-h-72 flex-col justify-between bg-gold p-5 line">
+        <div className="flex h-full min-h-72 flex-col justify-between bg-tint p-6 line">
           <div>
-            <p className="font-semibold">{p.level.join(", ")}</p>
-            <p className="mt-2 font-display text-4xl font-extrabold uppercase leading-[0.95] md:text-5xl">{p.name}</p>
+            <p className="text-sm text-ink-soft">{p.level.join(", ")}</p>
+            <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight">{p.name}</p>
           </div>
           <div>
             <dl className="mt-4 grid grid-cols-3 gap-2 text-[0.95rem]">
-              <div><dt>Length</dt><dd className="font-bold">{p.duration ?? "Not listed"}</dd></div>
-              <div><dt>Per year</dt><dd className="font-bold">{p.fee ? `₹${p.fee}` : "Not listed"}</dd></div>
-              <div><dt>Intake</dt><dd className="font-bold">{p.intake ?? "Not listed"}</dd></div>
+              <div><dt className="text-ink-soft">Length</dt><dd className="font-bold">{p.duration ?? "Not listed"}</dd></div>
+              <div><dt className="text-ink-soft">Per year</dt><dd className="font-bold">{p.fee ? `₹${p.fee}` : "Not listed"}</dd></div>
+              <div><dt className="text-ink-soft">Intake</dt><dd className="font-bold">{p.intake ?? "Not listed"}</dd></div>
             </dl>
             <a href={p.url} target="_blank" rel="noopener noreferrer" className="btn btn-line mt-4 w-full">Open this programme ↗<span className="sr-only"> on srmist.edu.in (opens in a new tab)</span></a>
           </div>

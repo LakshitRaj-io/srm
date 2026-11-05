@@ -1,5 +1,5 @@
 "use client";
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import data from "@/data/programmes.json";
 
 export type Programme = { name: string; url: string; level: string[]; duration: string | null; years: string | null; fee: string | null; intake: string | null };
@@ -14,6 +14,12 @@ export function ProgrammeFinder() {
   const [duration, setDuration] = useState("");
   const [limit, setLimit] = useState(PAGE);
   const dq = useDeferredValue(q);
+
+  useEffect(() => {
+    const pick = (e: Event) => { setQ(""); setDuration(""); setLevel((e as CustomEvent<string>).detail); setLimit(PAGE); };
+    window.addEventListener("srm-level", pick);
+    return () => window.removeEventListener("srm-level", pick);
+  }, []);
 
   const results = useMemo(() => {
     const words = dq.toLowerCase().split(/\s+/).filter(Boolean);
@@ -49,7 +55,7 @@ export function ProgrammeFinder() {
       </form>
 
       <div className="lg:col-span-8">
-        <p role="status" aria-live="polite" className="font-display text-2xl font-semibold tracking-tight">
+        <p role="status" aria-live="polite" className="text-xl font-semibold tracking-tight">
           {results.length} {results.length === 1 ? "programme" : "programmes"}{level ? `, ${level}` : ""}{duration ? `, ${duration}` : ""}
         </p>
 
@@ -60,8 +66,8 @@ export function ProgrammeFinder() {
             {results.slice(0, limit).map((p) => (
               <li key={p.url} className="panel grid gap-2 px-5 py-4 md:grid-cols-[1fr_16rem] md:items-center md:gap-6">
                 <div>
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="font-semibold leading-snug hover:text-blue hover:underline">
-                    {p.name}<span className="sr-only"> (official page on srmist.edu.in, opens in a new tab)</span> <span aria-hidden="true" className="text-blue">↗</span>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="inline-block py-0.5 font-semibold leading-snug hover:text-accent hover:underline">
+                    {p.name}<span className="sr-only"> (official page on srmist.edu.in, opens in a new tab)</span> <span aria-hidden="true" className="text-accent">↗</span>
                   </a>
                   <p className="text-[0.9rem] text-ink-soft">{p.level.join(", ") || "Level not listed"}</p>
                 </div>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { ExtLink } from "@/components/ExtLink";
-import { PageHero } from "@/components/PageHero";
 import { ProgrammeFinder } from "@/components/ProgrammeFinder";
 import { CatalogueWall } from "@/components/art/CatalogueWall";
-import { Ticker } from "@/components/art/Ticker";
+import { Mosaic } from "@/components/art/Mosaic";
+import { StageHero, type StageOption } from "@/components/art/StageHero";
 import { WWW } from "@/data/site";
 import data from "@/data/programmes.json";
 
@@ -20,19 +20,24 @@ const areas = [
   ["Online Education", "https://www.srmonline.in/"],
 ];
 
+const count = (l: string) => data.filter((p) => p.level.includes(l)).length;
+const stage: StageOption[] = [
+  { label: "All programmes", stat: String(data.length), line: "Every programme in the official catalogue, each linked to its official page.", image: "/images/classroom.jpg", alt: "Students at desks in an SRMIST classroom", cta: "Search everything", href: "#finder", level: "" },
+  { label: "Undergraduate", stat: String(count("Undergraduate")), line: "Bachelor's programmes, from engineering to law and health sciences.", image: "/images/techpark2.jpg", alt: "The colourful glass facade of the SRMIST Tech Park", cta: "Show undergraduate", href: "#finder", level: "Undergraduate" },
+  { label: "Postgraduate", stat: String(count("Post Graduate")), line: "Master's and other postgraduate programmes.", image: "/images/library.jpg", alt: "Rows of bookshelves in the SRMIST Central Library", cta: "Show postgraduate", href: "#finder", level: "Post Graduate" },
+  { label: "Ph.D.", stat: String(count("Ph.D")), line: "Doctoral programmes across the university.", image: "/images/lab.jpg", alt: "A researcher working with analytical instruments in an SRMIST laboratory", cta: "Show Ph.D.", href: "#finder", level: "Ph.D" },
+];
+
 export default function Academics() {
   return (
     <>
-      <PageHero title={[String(data.length), "programmes", "One search"]} tone="bg-blue text-white" lede="Every programme in the official catalogue, each linked to its official page." image="/images/classroom.jpg" alt="Students at desks in an SRMIST classroom">
-        <a href="#finder" className="btn btn-gold">Start searching</a>
-      </PageHero>
+      <StageHero title={["Find your programme"]} options={stage} />
 
       <section aria-labelledby="wall-h" className="wrap section">
         <h2 id="wall-h" className="t-section mb-8">The whole catalogue</h2>
         <CatalogueWall />
       </section>
 
-      <Ticker items={areas.map(([l]) => l)} tone="gold" />
 
       <section id="finder" aria-labelledby="finder-h" className="bg-mist">
         <div className="wrap section">
@@ -41,19 +46,21 @@ export default function Academics() {
         </div>
       </section>
 
+      <Mosaic shots={[{ src: "/images/library.jpg", alt: "Rows of bookshelves in the SRMIST Central Library" }, { src: "/images/ideathon.jpg", alt: "Students on stage at the Inspira Ideathon at SRMIST" }, { src: "/images/computers.jpg", alt: "Students working at computers in an SRMIST lab" }]} />
+
       <section id="areas" aria-labelledby="areas-h" className="wrap section">
         <h2 id="areas-h" className="t-section">Study areas</h2>
-        <ul className="mt-8 grid gap-[3px] border-[3px] border-black bg-black sm:grid-cols-2 lg:grid-cols-4">
-          {areas.map(([l, h]) => (<li key={h} className="bg-white"><ExtLink href={h} showHost={false} className="block h-full p-5 font-display text-3xl font-extrabold uppercase leading-none hover:bg-gold">{l}</ExtLink></li>))}
+        <ul className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {areas.map(([l, h]) => (<li key={h} className="bg-surface"><ExtLink href={h} showHost={false} className="block h-full p-5 font-medium hover:bg-tint">{l}</ExtLink></li>))}
         </ul>
       </section>
 
       <section id="detail" aria-labelledby="detail-h" className="wrap pb-20">
-        <div className="bg-gold p-7 line md:p-10">
+        <div className="bg-tint p-7 line md:p-10">
           <h2 id="detail-h" className="t-section">B.Arch. Architecture</h2>
           <dl className="mt-6 grid grid-cols-2 gap-6 md:grid-cols-4">
             {[["Campus", "Kattankulathur (KTR)"], ["Sanctioned intake", "80"], ["Annual fees", "INR 2,75,000"], ["Duration", "5 years"]].map(([k, v]) => (
-              <div key={k}><dt>{k}</dt><dd className="text-xl font-bold">{v}</dd></div>
+              <div key={k} className="min-w-0"><dt className="text-ink-soft">{k}</dt><dd className="text-lg font-semibold [overflow-wrap:anywhere]">{v}</dd></div>
             ))}
           </dl>
           <p className="measure mt-6">A 10-semester programme with a focus on contemporary issues such as sustainability and urban re-development, offered by the School of Architecture and Interior Design.</p>

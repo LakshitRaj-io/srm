@@ -16,7 +16,7 @@ export const nirf = [
 export const accreditations = ["University Grants Commission", "Ministry of Education", "The Institution of Engineering and Technology", "Engineering Accreditation Commission of ABET", "National Board of Accreditation", "Indian Council of Agricultural Research"];
 
 export const homeStats = [
-  ["50,000+", "Students"], ["1985", "Established"], ["250+", "Acre green campus"], ["3,200+", "Academicians"], ["9", "Colleges"], ["111+", "Departments"], ["900+", "International students"], ["₹30 Cr+", "Scholarships every year"],
+  ["50,000+", "Students"], ["1985", "Established"], ["250+", "Acre green campus"], ["3,200+", "Academicians"], ["9", "Colleges"], ["111+", "Departments"], ["900+", "International students"], ["₹30 Cr+", "Scholarships every year"], ["10,969+", "Placement offers, 2026 batch"], ["60 LPA", "Highest CTC, 2026 batch"],
 ] as const;
 
 export const researchFacts: Fact[] = [

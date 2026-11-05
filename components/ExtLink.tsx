@@ -8,7 +8,7 @@ export function ExtLink({ href, children, className = "", showHost = true }: { h
     <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
       {children}
       {showHost ? (
-        <span className="ml-1.5 whitespace-nowrap text-[0.78em] font-normal">↗ {host(href)}</span>
+        <span className="ml-1.5 text-[0.78em] font-normal">↗ {host(href)}</span>
       ) : (
         <span aria-hidden="true"> ↗</span>
       )}

@@ -17,14 +17,14 @@ export function CampaignNotice() {
   };
   return (
     <aside aria-label="Campaign" className="wrap py-8">
-      <div className="flex items-center justify-between gap-4 border-[3px] border-black bg-white py-1 pl-4 pr-1">
+      <div className="flex items-center justify-between gap-4 rounded-xl border border-line bg-surface py-1 pl-4 pr-1 text-[0.95rem]">
         <p>
           Alumni campaign: 30 days, 30 scholars, 30 global platforms.{" "}
           <a className="link" href="https://alumni.srmist.edu.in/funds/view/2988.dz" target="_blank" rel="noopener noreferrer">
             Contribute<span className="sr-only"> on alumni.srmist.edu.in (opens in a new tab)</span> ↗
           </a>
         </p>
-        <button type="button" onClick={close} aria-label="Dismiss campaign notice" className="grid h-11 w-11 shrink-0 place-items-center text-xl hover:bg-gold">×</button>
+        <button type="button" onClick={close} aria-label="Dismiss campaign notice" className="grid h-11 w-11 shrink-0 place-items-center rounded-lg text-xl hover:bg-tint">×</button>
       </div>
     </aside>
   );

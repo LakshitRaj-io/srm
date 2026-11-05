@@ -4,11 +4,11 @@ import { Scramble } from "./Scramble";
 // Departures-style board for the NIRF 2025 results.
 export function RankBoard() {
   return (
-    <dl className="grid border-[3px] border-white sm:grid-cols-2">
-      {nirf.map(([k, v], i) => (
-        <div key={k} className={`flex items-center justify-between gap-4 border-b-[3px] border-white px-4 py-2 sm:odd:border-r-[3px] ${i < 2 ? "bg-gold text-black" : ""}`}>
-          <dt className="font-display text-2xl font-extrabold uppercase leading-none md:text-3xl">{k}</dt>
-          <dd className="font-display text-5xl font-extrabold leading-none md:text-6xl"><Scramble value={v} /></dd>
+    <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 sm:grid-cols-3">
+      {nirf.map(([k, v]) => (
+        <div key={k} className="bg-night p-4">
+          <dd className="text-3xl font-semibold tracking-tight"><Scramble value={v} /></dd>
+          <dt className="mt-1 text-sm text-white/75">{k}</dt>
         </div>
       ))}
     </dl>
