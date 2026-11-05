@@ -228,6 +228,27 @@ html[data-lite] .glass, html[data-lite] .glass-chip, html[data-lite] .door-chip,
 .news-card { transition: border-color 0.2s, box-shadow 0.3s; }
 .news-card:hover { border-color: var(--accent); box-shadow: 0 22px 40px -28px rgb(11 18 32 / 0.6); }
 
+/* On the homepage the footer is the last full screen; the call to apply takes the spare height. */
+@media (min-width: 768px) {
+  html:has(.page) .site-footer { min-height: calc(var(--vh) * 100 - var(--hdr)); }
+  html:has(.page) .footer-cta { flex: 1; }
+  html:has(.page) .footer-cta .t-section { font-size: clamp(2.75rem, 5.6vw, 5rem); line-height: 1.02; }
+}
+
+/* Theme toggle: the sun's rays fold away and a shadow slides over its disc to leave a moon. */
+.theme-btn { color: #a87400; transition: color 0.4s, background-color 0.15s, scale 0.2s; }
+.theme-btn:active { scale: 0.88; }
+.theme-icon { transition: rotate 0.75s cubic-bezier(0.34, 1.4, 0.64, 1); }
+.theme-core, .theme-rays, .theme-shadow { transform-origin: 12px 12px; }
+.theme-core { transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1); }
+.theme-rays { transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.3s; }
+.theme-shadow { transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1); }
+[data-theme="dark"] .theme-btn { color: var(--fg); }
+[data-theme="dark"] .theme-icon { rotate: 360deg; }
+[data-theme="dark"] .theme-core { transform: scale(1.7); }
+[data-theme="dark"] .theme-rays { transform: rotate(90deg) scale(0.3); opacity: 0; }
+[data-theme="dark"] .theme-shadow { transform: translateX(-13px); }
+
 /* The photo in front drifts slowly while it is on show. */
 .cover-card.is-front img { animation: cover-drift 5s ease-out both; }
 @keyframes cover-drift { from { transform: scale(1.1); } }
@@ -235,5 +256,6 @@ html[data-lite] .glass, html[data-lite] .glass-chip, html[data-lite] .door-chip,
 @media (prefers-reduced-motion: reduce) {
   .door, .door-img, .door-arrow, .door-slot, .tile-img, .glass, .glass-num, .glass-glare, .area-chip, .news-card { transition: none !important; }
   .cover-card.is-front img { animation: none; }
+  .theme-btn, .theme-icon, .theme-core, .theme-rays, .theme-shadow { transition: none; }
   .glass:hover { transform: none; }
 }
