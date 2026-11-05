@@ -11,6 +11,7 @@ const NAV = [
   { href: "/admissions", label: "Admissions", sub: [["Find your route", "/admissions#finder"], ["How to apply", "/admissions#steps"], ["Apply by programme", "/admissions#routes"], ["Fees and scholarships", "/admissions#funding"], ["International applicants", "/admissions#international"]] },
   { href: "/academics", label: "Academics", sub: [["Programme finder", "/academics#finder"], ["Study areas", "/academics#areas"], ["Programme page example", "/academics#detail"]] },
   { href: "/research", label: "Research", sub: [["Find your pathway", "/research#pathways"], ["Explore the centres", "/research#centres"], ["Research record", "/research#record"], ["Contact the Directorate", "/research#contact"]] },
+  { href: "/campus-tour", label: "Campus", sub: [["Virtual tour", "/campus-tour"], ["Campus in 3D", "/#campus-3d"], ["Life on campus", "/#film"]] },
 ] as const;
 
 export function Header() {

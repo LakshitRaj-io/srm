@@ -121,12 +121,12 @@ export function NumbersBento() {
       </Tile>
 
       <Tile i={8} bg={<div className="absolute inset-0 bg-tint" />}>
-        <span aria-hidden="true" className="text-sm font-semibold text-accent">2026 batch</span>
+        <span className="text-sm font-semibold text-accent">2026 batch, as on 9 Sep 2026</span>
         <div><Num v={stat("Placement offers, 2026 batch")} className="text-[clamp(1.7rem,3.4vw,2.75rem)]" /><Label className="mt-2">Placement offers</Label></div>
       </Tile>
 
       <Tile i={9} className="on-dark text-white" bg={<div className="absolute inset-0 bg-night" />}>
-        <span aria-hidden="true" className="text-sm font-semibold text-gold">2026 batch</span>
+        <span className="text-sm font-semibold text-gold">2026 batch, as on 9 Sep 2026</span>
         <div><Num v={stat("Highest CTC, 2026 batch")} className="text-[clamp(1.7rem,3.4vw,2.75rem)] text-gold" /><Label className="mt-2 text-white/80">Highest CTC</Label></div>
       </Tile>
     </ul>

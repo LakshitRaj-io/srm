@@ -6,7 +6,7 @@ import { ExtLink } from "./ExtLink";
 const COLUMNS = [
   { title: "Study", links: [["Programme finder", "/academics#finder"], ["Study areas", "/academics#areas"], ["Programme example", "/academics#detail"]] },
   { title: "Apply", links: [["Find your route", "/admissions#finder"], ["How to apply", "/admissions#steps"], ["Fees and scholarships", "/admissions#funding"], ["Applying from abroad", "/admissions#international"]] },
-  { title: "Research", links: [["Your pathway", "/research#pathways"], ["Centres", "/research#centres"], ["Research record", "/research#record"], ["Directorate", "/research#contact"]] },
+  { title: "Research", links: [["Your pathway", "/research#pathways"], ["Centres", "/research#centres"], ["Research record", "/research#record"], ["Directorate", "/research#contact"], ["Virtual campus tour", "/campus-tour"]] },
 ];
 const SOCIAL = [
   ["Facebook", "https://www.facebook.com/SRMUniversityOfficial"],

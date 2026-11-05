@@ -10,6 +10,7 @@ An independent redesign concept based on SRM Institute of Science and Technology
 | `/admissions` | Applicant journey and official application routes |
 | `/academics` | Programme finder (429 official catalogue entries) with "Describe what you enjoy" suggestions |
 | `/research` | Research pathways, record, centres and contact |
+| `/campus-tour` | SRMIST's official 360° virtual tour (loads on request) and campus landmarks |
 
 Every page also has the **SRM Guide**, a compact assistant (bottom right) that points visitors to the right page here or on the official SRMIST site. Both the Guide and programme suggestions call one server route, `app/api/assistant/route.ts`.
 
@@ -90,6 +91,12 @@ npx vercel --prod
 - Themes are CSS variables at the top of `app/globals.css`. Dark is the default; visitors switch with the header toggle.
 - `lib/site-pages.ts` lists every page the SRM Guide may suggest. Add a page there (with keywords) to make it findable; the Guide cannot link anywhere else.
 - `lib/catalogue.ts` holds the interest keywords used for local matching and for choosing AI candidates.
+
+## Campus 3D reveal
+
+The homepage section after the hero (`components/art/Campus3D.tsx`, scene in `lib/campus-scene.ts`, facts in `data/campus.ts`) flies through the University Building, Tech Park and Tech Park 2, then settles on a navigable overview. three.js is loaded with a dynamic import only on screens 768px and wider with WebGL and no Save-Data; phones, other browsers and no-JS visitors get an SVG drawing with the same content. The flythrough plays once when the section is on screen, can be skipped or replayed, and does not autoplay with reduced motion.
+
+The models are illustrative. University Building and Tech Park are stylised from SRMIST's official photographs and official floor counts; Tech Park 2 is an outlined placeholder because no verified exterior reference was available. For higher fidelity, add official elevation photos or drawings of each building (especially Tech Park 2), footprint dimensions and a campus site plan with building positions.
 
 ## Responsive, motion and browser support
 

@@ -57,7 +57,7 @@ export function MaskHero() {
             </p>
             <p className="flex shrink-0 items-center gap-4 text-sm font-medium">
               <span aria-hidden="true" className="hidden sm:inline">Scroll to enter</span>
-              <a href="#start" className="inline-flex min-h-11 items-center rounded-full px-4 underline underline-offset-4 ring-1 ring-current/30 hover:ring-current">Skip intro <span aria-hidden="true">&nbsp;↓</span></a>
+              <a href="#campus-3d" className="inline-flex min-h-11 items-center rounded-full px-4 underline underline-offset-4 ring-1 ring-current/30 hover:ring-current">Skip intro <span aria-hidden="true">&nbsp;↓</span></a>
             </p>
           </div>
         </motion.div>

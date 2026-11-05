@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CampaignNotice } from "@/components/CampaignNotice";
 import { ExtLink } from "@/components/ExtLink";
 import { CatalogueWall } from "@/components/art/CatalogueWall";
+import { Campus3D } from "@/components/art/Campus3D";
 import { CampusFilm } from "@/components/art/CampusFilm";
 import { DoorStack } from "@/components/art/DoorStack";
 import { ExpandImage } from "@/components/art/ExpandImage";
@@ -20,10 +22,21 @@ export default function Home() {
   return (
     <>
       <MaskHero />
+      <Campus3D />
       <CampaignNotice />
 
       <DoorStack />
       <CampusFilm />
+
+      <section aria-labelledby="tour-entry" className="wrap pb-16">
+        <Link href="/campus-tour" className="group on-dark relative isolate flex min-h-64 flex-col justify-end overflow-hidden rounded-2xl bg-black p-6 text-white md:min-h-80 md:p-10">
+          <Image src="/images/walkway.jpg" alt="" fill sizes="(min-width:1280px) 1200px, 100vw" className="-z-10 object-cover opacity-60 transition-transform duration-700 group-hover:scale-105" />
+          <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-tr from-black/85 via-black/40 to-transparent" />
+          <span className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">360° · Official SRMIST tour</span>
+          <span id="tour-entry" className="t-section mt-2 block max-w-2xl">Walk the campus from anywhere</span>
+          <span className="mt-4 inline-flex w-fit items-center gap-2 rounded-xl bg-white px-4 py-2.5 font-medium text-black">Start the virtual tour <span aria-hidden="true">→</span></span>
+        </Link>
+      </section>
 
       <section aria-labelledby="bento" className="bg-surface">
         <div className="wrap section">
