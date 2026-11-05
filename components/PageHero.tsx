@@ -1,18 +1,22 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
+import { Parallax } from "./art/Parallax";
 
-// Shared inner-page opening: title on the left, photo with the rising stepped edge on the right.
-export function PageHero({ title, lede, image, alt, children }: { title: string; lede: string; image: string; alt: string; children?: ReactNode }) {
+// Inner-page opening: a poster-scale title that slams up, over a photo strip.
+export function PageHero({ title, lede, image, alt, tone = "bg-gold text-black", children }: { title: string[]; lede: string; image: string; alt: string; tone?: string; children?: ReactNode }) {
   return (
-    <section className="wrap grid items-end gap-8 pt-12 md:grid-cols-12 md:gap-10 md:pt-16">
-      <div className="pb-2 md:col-span-6 md:pb-14">
-        <h1 className="t-page">{title}</h1>
-        <p className="lede mt-5 text-ink-soft">{lede}</p>
-        {children}
+    <section className={tone}>
+      <div className="wrap pb-8 pt-8 md:pt-10">
+        <h1 className="t-page" aria-label={title.join(" ")}>
+          {title.map((l, i) => (
+            <span key={l} aria-hidden="true" className="block overflow-hidden"><span className="slam block" style={{ "--d": `${i * 120}ms` } as React.CSSProperties}>{l}</span></span>
+          ))}
+        </h1>
+        <div className="mt-6 flex flex-wrap items-end justify-between gap-5">
+          <p className="lede">{lede}</p>
+          {children}
+        </div>
       </div>
-      <div className="stepped relative aspect-[16/10] md:col-span-6 md:aspect-[5/4]">
-        <Image src={image} alt={alt} fill priority sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
-      </div>
+      <Parallax src={image} alt={alt} priority className="h-[44svh] border-y-[3px] border-black md:h-[62svh]" />
     </section>
   );
 }
