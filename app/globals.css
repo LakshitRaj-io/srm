@@ -23,8 +23,8 @@
 @layer components {
   .wrap { margin-inline: auto; max-width: 90rem; padding-inline: clamp(1rem, 3vw, 2.5rem); }
   .section { padding-block: clamp(4rem, 8vw, 7.5rem); }
-  .t-hero { font-size: clamp(5rem, 17vw, 17rem); line-height: 0.84; }
-  .t-page { font-size: clamp(4.5rem, 17.5vw, 19rem); line-height: 0.82; }
+  .t-hero { font-size: clamp(4rem, 15vw, 15rem); line-height: 0.84; }
+  .t-page { font-size: clamp(3rem, 16vw, 17rem); line-height: 0.82; }
   .t-section { font-size: clamp(3rem, 8vw, 7.5rem); }
   .t-card { font-size: clamp(1.75rem, 3vw, 2.5rem); }
   .lede { font-size: clamp(1.2rem, 1.9vw, 1.6rem); font-weight: 500; line-height: 1.32; max-width: 38rem; }

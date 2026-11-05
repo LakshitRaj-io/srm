@@ -40,7 +40,7 @@ export default function Home() {
           <dl className="mt-8 grid auto-rows-[minmax(10rem,auto)] gap-[3px] border-[3px] border-black bg-black md:grid-cols-12">
             {homeStats.map(([v, l], i) => (
               <div key={l} className={`flex flex-col justify-end p-5 ${span[i]}`}>
-                <dd className={`font-display font-black leading-[0.85] ${i === 0 ? "text-[clamp(5rem,14vw,14rem)]" : "text-7xl"}`}><Scramble value={v} /></dd>
+                <dd className={`font-display font-black leading-[0.85] ${i === 0 ? "text-[clamp(4.5rem,10.5vw,10.5rem)]" : "text-7xl"}`}><Scramble value={v} /></dd>
                 <dt className="mt-2 font-semibold">{l}</dt>
               </div>
             ))}

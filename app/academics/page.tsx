@@ -23,7 +23,7 @@ const areas = [
 export default function Academics() {
   return (
     <>
-      <PageHero title={[`${data.length} programmes`, "One search"]} tone="bg-blue text-white" lede="Every programme in the official catalogue, each linked to its official page." image="/images/classroom.jpg" alt="Students at desks in an SRMIST classroom">
+      <PageHero title={[String(data.length), "programmes", "One search"]} tone="bg-blue text-white" lede="Every programme in the official catalogue, each linked to its official page." image="/images/classroom.jpg" alt="Students at desks in an SRMIST classroom">
         <a href="#finder" className="btn btn-gold">Start searching</a>
       </PageHero>
 
