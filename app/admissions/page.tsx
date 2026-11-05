@@ -82,7 +82,7 @@ export default function Admissions() {
         </div>
       </section>
 
-      <section aria-labelledby="help-h" className="wrap section">
+      <section id="contact" aria-labelledby="help-h" className="wrap section">
         <h2 id="help-h" className="t-section">Talk to Admissions</h2>
         <dl className="mt-6 grid gap-6 md:grid-cols-2">
           <div><dd className="text-2xl font-semibold tracking-tight"><a className="hover:text-accent" href="tel:+917026452645">+91 70 2645 2645</a></dd><dt className="mt-1">Engineering, Agriculture and Architecture</dt></div>

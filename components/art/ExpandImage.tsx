@@ -14,21 +14,21 @@ export function ExpandImage({ src, alt, caption }: { src: string; alt: string; c
 
   if (reduced) {
     return (
-      <figure className="relative h-[70svh]">
+      <figure className="relative h-[calc(var(--vh)*70)]">
         <Image src={src} alt={alt} fill sizes="100vw" className="object-cover" />
         <figcaption className="absolute bottom-6 left-6 rounded-full bg-black/60 px-4 py-2 font-medium text-white backdrop-blur-md">{caption}</figcaption>
       </figure>
     );
   }
   return (
-    <section ref={ref} aria-label={caption} className="relative h-[220svh] bg-surface">
-      <div className="sticky top-0 h-svh overflow-hidden">
-        <motion.div style={{ clipPath }} className="absolute inset-0">
+    <section ref={ref} aria-label={caption} className="fx-tall relative h-[calc(var(--vh)*150)] bg-surface md:h-[calc(var(--vh)*220)]">
+      <div className="fx-pin sticky top-0 h-[calc(var(--vh)*100)] overflow-hidden">
+        <motion.div style={{ clipPath }} className="fx-show absolute inset-0">
           <motion.div style={{ scale }} className="absolute inset-0">
             <Image src={src} alt={alt} fill sizes="100vw" className="object-cover" />
           </motion.div>
         </motion.div>
-        <motion.p style={{ opacity }} className="absolute bottom-6 left-6 rounded-full bg-black/60 px-4 py-2 font-medium text-white backdrop-blur-md">{caption}</motion.p>
+        <motion.p style={{ opacity }} className="fx-show absolute bottom-6 left-6 rounded-full bg-black/60 px-4 py-2 font-medium text-white backdrop-blur-md">{caption}</motion.p>
       </div>
     </section>
   );

@@ -8,3 +8,7 @@ next-env.d.ts
 *.pptx
 
 .vercel
+
+# Local environment files (keys). .env.example stays tracked.
+.env*
+!.env.example

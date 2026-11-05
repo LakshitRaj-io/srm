@@ -7,7 +7,7 @@ function Step({ i, title, text, onSee }: { i: number; title: string; text: strin
   const on = useInView(ref, { margin: "-45% 0px -45% 0px" });
   useEffect(() => { if (on) onSee(i); }, [on, i, onSee]);
   return (
-    <li ref={ref} className="flex min-h-[34svh] flex-col justify-center border-b border-line py-8 last:border-b-0">
+    <li ref={ref} className="flex min-h-[calc(var(--vh)*34)] flex-col justify-center border-b border-line py-8 last:border-b-0">
       <h3 className="text-2xl md:text-4xl"><span className="lg:hidden">{i + 1}. </span>{title}</h3>
       <p className="lede mt-3">{text}</p>
     </li>

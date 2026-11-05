@@ -7,10 +7,10 @@ import { CampusFilm } from "@/components/art/CampusFilm";
 import { DoorStack } from "@/components/art/DoorStack";
 import { ExpandImage } from "@/components/art/ExpandImage";
 import { MaskHero } from "@/components/art/MaskHero";
+import { NumbersBento } from "@/components/art/NumbersBento";
 import { Parallax } from "@/components/art/Parallax";
 import { RankBoard } from "@/components/art/RankBoard";
-import { Scramble } from "@/components/art/Scramble";
-import { WWW, accreditations, homeStats, news } from "@/data/site";
+import { WWW, accreditations, news } from "@/data/site";
 
 export const metadata: Metadata = { title: { absolute: "SRMIST redesign concept: Learn. Leap. Lead." }, description: "Start here for SRMIST admissions, programmes and research." };
 
@@ -28,14 +28,8 @@ export default function Home() {
       <section aria-labelledby="bento" className="bg-surface">
         <div className="wrap section">
           <h2 id="bento" className="t-section">SRMIST in numbers</h2>
-          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-5">
-            {homeStats.map(([v, l]) => (
-              <div key={l} className="bg-surface p-5 md:p-6">
-                <dd className="text-[clamp(1.75rem,3vw,2.5rem)] font-semibold leading-none tracking-tight"><Scramble value={v} /></dd>
-                <dt className="mt-2 text-[0.95rem] text-ink-soft">{l}</dt>
-              </div>
-            ))}
-          </dl>
+          <p className="lede mt-4">A university of scale, in ten figures from SRMIST's official pages.</p>
+          <NumbersBento />
         </div>
       </section>
 

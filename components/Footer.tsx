@@ -55,7 +55,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-line">
-          <div className="wrap flex flex-wrap justify-between gap-x-8 gap-y-2 py-4 text-sm text-ink-soft">
+          <div className="wrap flex flex-wrap justify-between gap-x-8 gap-y-2 pb-24 pt-4 text-sm text-ink-soft">
             <ExtLink href={WWW} showHost={false} className="inline-block py-1 hover:text-accent">Official website</ExtLink>
             <ExtLink href={`${WWW}/contact-us/`} showHost={false} className="inline-block py-1 hover:text-accent">Contact us</ExtLink>
             <ExtLink href={`${WWW}/about-us/accreditations-and-rankings/`} showHost={false} className="inline-block py-1 hover:text-accent">Accreditations and rankings</ExtLink>

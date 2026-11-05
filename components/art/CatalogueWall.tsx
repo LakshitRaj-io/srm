@@ -23,34 +23,53 @@ export function CatalogueWall() {
   const [active, setActive] = useState<string | null>(null);
   const [cur, setCur] = useState(0);
   const [held, setHeld] = useState(false);
+  // A programme clicked (or tapped) on the wall stays selected until cleared, so moving the pointer
+  // to "Open this programme" can't change it. Unpinned, hover previews only after the pointer
+  // rests on a cell briefly, so sweeping across the wall toward the panel doesn't flip the card.
+  const [pinned, setPinned] = useState<number | null>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (hoverTimer.current) clearTimeout(hoverTimer.current); }, []);
   const counts = useMemo(() => Object.fromEntries(GROUPS.map((g) => [g.key, ALL.filter((p) => groupOf(p) === g.key).length])), []);
 
   useEffect(() => {
-    if (held || reduced || !seen) return;
+    if (held || pinned !== null || reduced || !seen) return;
     const id = setInterval(() => {
       const pool = ALL.map((p, i) => ({ p, i })).filter((x) => !active || groupOf(x.p) === active);
       setCur(pool[Math.floor(Math.random() * pool.length)].i);
     }, 1300);
     return () => clearInterval(id);
-  }, [held, reduced, seen, active]);
+  }, [held, pinned, reduced, seen, active]);
 
   const pick = (key: string) => {
     const next = active === key ? null : key;
     setActive(next);
+    setPinned(null);
     if (next) setCur(ALL.findIndex((p) => groupOf(p) === next));
   };
   const p = ALL[cur];
 
   return (
-    <div className="grid gap-6 lg:grid-cols-12">
+    <div className="grid gap-6 lg:grid-cols-12" onMouseEnter={() => setHeld(true)} onMouseLeave={() => { setHeld(false); if (hoverTimer.current) clearTimeout(hoverTimer.current); }}>
       <div ref={ref} className="lg:col-span-8">
         <div aria-hidden="true" className={`grid gap-[3px] rounded-2xl border border-line p-3 ${seen ? "wall-in" : ""}`} style={{ gridTemplateColumns: "repeat(auto-fill, minmax(clamp(1.1rem, 2.3vw, 1.9rem), 1fr))" }}
-          onMouseLeave={() => setHeld(false)}
-          onMouseMove={(e) => { const i = (e.target as HTMLElement).dataset.i; if (i) { setHeld(true); setCur(+i); } }}>
+          onMouseOver={(e) => {
+            const i = (e.target as HTMLElement).dataset.i;
+            if (hoverTimer.current) clearTimeout(hoverTimer.current);
+            if (!i || pinned !== null) return;
+            hoverTimer.current = setTimeout(() => setCur(+i), 90);
+          }}
+          onClick={(e) => {
+            const i = (e.target as HTMLElement).dataset.i;
+            if (!i) return;
+            if (hoverTimer.current) clearTimeout(hoverTimer.current);
+            const n = +i;
+            setPinned(pinned === n ? null : n);
+            setCur(n);
+          }}>
           {ALL.map((x, i) => {
             const g = groupOf(x);
             const dim = active && active !== g;
-            return <div key={x.url} data-i={i} className="cell" style={{ "--i": i, background: i === cur ? "var(--fg)" : dim ? "var(--line)" : GROUPS.find((y) => y.key === g)!.color } as React.CSSProperties} />;
+            return <div key={x.url} data-i={i} className={`cell ${i === pinned ? "is-pinned" : ""}`} style={{ "--i": i, background: i === cur ? "var(--fg)" : dim ? "var(--line)" : GROUPS.find((y) => y.key === g)!.color } as React.CSSProperties} />;
           })}
         </div>
         <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Highlight programmes by level">
@@ -65,6 +84,14 @@ export function CatalogueWall() {
       <div className="lg:col-span-4">
         <div className="flex h-full min-h-72 flex-col justify-between bg-tint p-6 line">
           <div>
+            <div className="mb-3 flex min-h-8 flex-wrap items-center justify-between gap-2">
+              {pinned !== null ? (
+                <>
+                  <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-surface">Selected</span>
+                  <button type="button" onClick={() => setPinned(null)} className="link text-sm">Clear selection</button>
+                </>
+              ) : <span className="text-xs text-ink-soft">Hover the wall to preview. Click a cell to keep it here.</span>}
+            </div>
             <p className="text-sm text-ink-soft">{p.level.join(", ")}</p>
             <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight">{p.name}</p>
           </div>

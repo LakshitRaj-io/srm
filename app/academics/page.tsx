@@ -7,7 +7,7 @@ import { StageHero, type StageOption } from "@/components/art/StageHero";
 import { WWW } from "@/data/site";
 import data from "@/data/programmes.json";
 
-export const metadata: Metadata = { title: "Academics and programmes", description: "Search SRMIST programmes by name, level and duration." };
+export const metadata: Metadata = { title: "Academics and programmes", description: "Search SRMIST programmes by name, level and duration, or describe what you enjoy for suggestions." };
 
 const areas = [
   ["Engineering & Technology", `${WWW}/college/college-of-engineering-technology/`],

@@ -28,7 +28,7 @@ export function StageHero({ title, options }: { title: string[]; options: StageO
   const pick = (i: number) => { setTouched(true); setCur(i); };
 
   return (
-    <section ref={root} onPointerMove={move} className="stage on-dark relative isolate flex min-h-[calc(100svh-4.7rem)] flex-col justify-between overflow-hidden bg-black text-white">
+    <section ref={root} onPointerMove={move} className="stage on-dark relative isolate flex min-h-[calc(var(--vh)*100-var(--hdr))] flex-col justify-between overflow-hidden bg-black text-white">
       <div className="stage-bg absolute -inset-8 -z-20">
         {options.map((x, i) => (
           <Image key={x.image} src={x.image} alt={i === cur ? x.alt : ""} fill priority={i === 0} sizes="100vw" className={`stage-img object-cover ${i === cur ? "is-on" : ""}`} />
