@@ -50,7 +50,7 @@ export function StageHero({ title, options }: { title: string[]; options: StageO
           <p key={cur} className="stage-line lede">{o.line}</p>
           <a href={o.href} onClick={() => { if (o.level !== undefined) window.dispatchEvent(new CustomEvent("srm-level", { detail: o.level })); }} className="btn btn-gold">{o.cta}</a>
         </div>
-        <div role="group" aria-label="Choose a view" className="grid grid-cols-2 gap-[3px] border border-white bg-white lg:grid-cols-4">
+        <div role="group" aria-label="Choose a view" className="grid grid-cols-2 gap-1 rounded-2xl border border-white/20 bg-black/50 p-1 backdrop-blur-xl lg:grid-cols-4">
           {options.map((x, i) => (
             <button key={x.label} type="button" aria-pressed={i === cur} onPointerEnter={(e) => { if (e.pointerType === "mouse") pick(i); }} onFocus={() => pick(i)} onClick={() => pick(i)}
               className={`min-h-14 rounded-xl px-4 py-2.5 text-left transition-colors ${i === cur ? "bg-white text-black" : "text-white hover:bg-white/15"}`}>
