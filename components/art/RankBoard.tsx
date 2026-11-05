@@ -8,7 +8,7 @@ export function RankBoard() {
       {nirf.map(([k, v], i) => (
         <div key={k} className={`flex items-center justify-between gap-4 border-b-[3px] border-white px-4 py-2 sm:odd:border-r-[3px] ${i < 2 ? "bg-gold text-black" : ""}`}>
           <dt className="font-display text-2xl font-extrabold uppercase leading-none md:text-3xl">{k}</dt>
-          <dd className="font-display text-5xl font-black leading-none md:text-6xl"><Scramble value={v} /></dd>
+          <dd className="font-display text-5xl font-extrabold leading-none md:text-6xl"><Scramble value={v} /></dd>
         </div>
       ))}
     </dl>

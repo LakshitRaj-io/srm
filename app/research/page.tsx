@@ -29,7 +29,7 @@ export default function Research() {
           {pathways.map((p) => (
             <div key={p.who} className={`p-6 ${p.bg}`}>
               <h3 className="font-sans text-base font-bold normal-case">{p.who}</h3>
-              <p className="mt-1 font-display text-5xl font-black uppercase leading-[0.95]">{p.want}</p>
+              <p className="mt-1 font-display text-5xl font-extrabold uppercase leading-[0.95]">{p.want}</p>
               <ul className="mt-5">
                 {p.links.map(([l, h]) => (<li key={h}><ExtLink href={h} showHost={false} className="block py-1.5 font-semibold underline">{l}</ExtLink></li>))}
               </ul>
@@ -38,7 +38,7 @@ export default function Research() {
         </div>
       </section>
 
-      <section id="centres" aria-labelledby="cen-h" className="border-y-[3px] border-black bg-mist">
+      <section id="centres" aria-labelledby="cen-h" className="overflow-hidden border-y-[3px] border-black bg-mist">
         <div className="wrap section">
           <h2 id="cen-h" className="t-section mb-8">Explore the centres</h2>
           <Orbit />
@@ -51,7 +51,7 @@ export default function Research() {
           <dl className="mt-8 grid gap-8 sm:grid-cols-2">
             {researchFacts.map((f) => (
               <div key={f.label}>
-                <dd className="font-display text-[clamp(4.5rem,10vw,9rem)] font-black leading-[0.85] text-gold"><Scramble value={f.value} /></dd>
+                <dd className="font-display text-[clamp(4.5rem,10vw,9rem)] font-extrabold leading-[0.85] text-gold"><Scramble value={f.value} /></dd>
                 <dt className="mt-2 text-lg font-semibold">{f.label}</dt>
               </div>
             ))}

@@ -4,14 +4,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import data from "@/data/programmes.json";
 
 type P = { name: string; url: string; level: string[]; duration: string | null; fee: string | null; intake: string | null };
-const ALL = data as P[];
 const GROUPS = [
-  { key: "Undergraduate", label: "Undergraduate", color: "#0b4ea2" },
-  { key: "Post Graduate", label: "Postgraduate", color: "#000000" },
-  { key: "Ph.D", label: "Ph.D.", color: "#f5b82e" },
-  { key: "other", label: "Other", color: "#9aa7bd" },
+  { key: "Undergraduate", label: "Undergraduate", color: "#0c4da2" },
+  { key: "Post Graduate", label: "Postgraduate", color: "#6f9bd8" },
+  { key: "Ph.D", label: "Ph.D.", color: "#e4b316" },
+  { key: "other", label: "Other", color: "#ffffff" },
 ];
 const groupOf = (p: P) => (GROUPS.find((g) => p.level.includes(g.key)) ?? GROUPS[3]).key;
+const rank = (p: P) => GROUPS.findIndex((g) => g.key === groupOf(p));
+// Sorted by level so the wall reads as solid bands, largest first.
+const ALL = [...(data as P[])].sort((a, b) => rank(a) - rank(b));
 
 // One cell for every programme in the catalogue. Move across it to read each one.
 export function CatalogueWall() {
@@ -48,7 +50,7 @@ export function CatalogueWall() {
           {ALL.map((x, i) => {
             const g = groupOf(x);
             const dim = active && active !== g;
-            return <div key={x.url} data-i={i} className="cell" style={{ "--i": i, background: i === cur ? "#fff" : dim ? "#2a2a2a" : GROUPS.find((y) => y.key === g)!.color } as React.CSSProperties} />;
+            return <div key={x.url} data-i={i} className="cell" style={{ "--i": i, background: i === cur ? "#000" : dim ? "#262626" : GROUPS.find((y) => y.key === g)!.color, boxShadow: i === cur ? "inset 0 0 0 4px #fff" : undefined } as React.CSSProperties} />;
           })}
         </div>
         <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Highlight programmes by level">
@@ -64,7 +66,7 @@ export function CatalogueWall() {
         <div className="flex h-full min-h-72 flex-col justify-between bg-gold p-5 line">
           <div>
             <p className="font-semibold">{p.level.join(", ")}</p>
-            <p className="mt-2 font-display text-4xl font-black uppercase leading-[0.95] md:text-5xl">{p.name}</p>
+            <p className="mt-2 font-display text-4xl font-extrabold uppercase leading-[0.95] md:text-5xl">{p.name}</p>
           </div>
           <div>
             <dl className="mt-4 grid grid-cols-3 gap-2 text-[0.95rem]">

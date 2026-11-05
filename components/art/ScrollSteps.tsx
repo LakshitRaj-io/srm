@@ -20,7 +20,7 @@ export function ScrollSteps({ steps }: { steps: readonly (readonly [string, stri
   return (
     <div className="grid lg:grid-cols-12">
       <div aria-hidden="true" className="hidden lg:col-span-5 lg:block">
-        <div className="sticky top-28 overflow-hidden font-display text-[min(36rem,70svh)] font-black leading-[0.82] text-blue">
+        <div className="sticky top-28 overflow-hidden font-display text-[min(36rem,70svh)] font-extrabold leading-[0.82] text-blue">
           <span key={cur} className="slam block">{cur + 1}</span>
         </div>
       </div>

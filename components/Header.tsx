@@ -33,7 +33,7 @@ export function Header() {
       <div className="wrap flex h-[4.5rem] items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3" aria-label="SRM Institute of Science and Technology home">
           <Image src="/images/srm-crest.png" alt="" width={52} height={52} priority className="h-[3.25rem] w-[3.25rem]" />
-          <span className="hidden font-display text-xl font-black uppercase leading-[1] sm:block">SRM Institute of<br />Science and Technology</span>
+          <span className="hidden font-display text-xl font-extrabold uppercase leading-[1] sm:block">SRM Institute of<br />Science and Technology</span>
         </Link>
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-2">
@@ -65,7 +65,7 @@ export function Header() {
           <ul>
             {NAV.map((n) => (
               <li key={n.href} className="py-3">
-                <Link href={n.href} className="font-display text-5xl font-black uppercase">{n.label}</Link>
+                <Link href={n.href} className="font-display text-5xl font-extrabold uppercase">{n.label}</Link>
                 <ul className="mt-1">{n.sub.map(([l, h]) => (<li key={h}><Link href={h} className="block py-1 font-medium">{l}</Link></li>))}</ul>
               </li>
             ))}

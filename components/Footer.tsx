@@ -27,7 +27,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <p aria-hidden="true" className="whitespace-nowrap px-2 pb-2 text-center font-display text-[12.8vw] font-black uppercase leading-[0.8]">Learn Leap Lead</p>
+      <p aria-hidden="true" className="whitespace-nowrap px-2 pb-2 text-center font-display text-[12.8vw] font-extrabold uppercase leading-[0.8]">Learn Leap Lead</p>
     </footer>
   );
 }

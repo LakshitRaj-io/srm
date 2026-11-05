@@ -44,7 +44,7 @@ export default function Academics() {
       <section id="areas" aria-labelledby="areas-h" className="wrap section">
         <h2 id="areas-h" className="t-section">Study areas</h2>
         <ul className="mt-8 grid gap-[3px] border-[3px] border-black bg-black sm:grid-cols-2 lg:grid-cols-4">
-          {areas.map(([l, h]) => (<li key={h} className="bg-white"><ExtLink href={h} showHost={false} className="block h-full p-5 font-display text-3xl font-black uppercase leading-none hover:bg-gold">{l}</ExtLink></li>))}
+          {areas.map(([l, h]) => (<li key={h} className="bg-white"><ExtLink href={h} showHost={false} className="block h-full p-5 font-display text-3xl font-extrabold uppercase leading-none hover:bg-gold">{l}</ExtLink></li>))}
         </ul>
       </section>
 

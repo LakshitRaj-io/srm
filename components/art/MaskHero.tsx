@@ -43,11 +43,11 @@ export function MaskHero() {
         </motion.div>
         <motion.div style={{ opacity: copy }} className="absolute inset-0 bg-black/55" />
         <motion.div aria-hidden="true" style={{ opacity: sheet }} className="absolute inset-0 grid place-items-center overflow-hidden bg-white mix-blend-screen">
-          <motion.span style={{ scale: zoom }} className="block font-display text-[min(40vw,78svh)] font-black leading-[0.8] text-black">SRM</motion.span>
+          <motion.span style={{ scale: zoom }} className="block font-display text-[min(40vw,78svh)] font-extrabold leading-[0.8] text-black">SRM</motion.span>
         </motion.div>
         <motion.div aria-hidden="true" style={{ opacity: sheet }} className="absolute inset-x-0 bottom-5 z-10">
           <div className="wrap flex items-end justify-between gap-4 text-black">
-            <p className="font-display text-2xl font-black uppercase leading-none md:text-4xl">Institute of Science and Technology</p>
+            <p className="font-display text-2xl font-extrabold uppercase leading-none md:text-4xl">Institute of Science and Technology</p>
             <p className="shrink-0 font-bold">Scroll to enter</p>
           </div>
         </motion.div>

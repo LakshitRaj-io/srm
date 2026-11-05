@@ -73,7 +73,7 @@ export default function Admissions() {
           <h2 id="intl-h" className="t-section">Applying from abroad</h2>
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             {[["40%", "fee waiver for NRI, PIO and OCI applicants with SAT, or 70% and above in HSC grades"], ["65%", "fee waiver for foreign applicants from Africa, Asia and SAARC, Engineering stream"], ["50%", "fee waiver for foreign applicants from Africa, Asia and SAARC, other programmes"]].map(([v, t]) => (
-              <div key={v}><p className="font-display text-[clamp(5rem,11vw,10rem)] font-black leading-[0.85] text-gold">{v}</p><p className="mt-2">{t}</p></div>
+              <div key={v}><p className="font-display text-[clamp(5rem,11vw,10rem)] font-extrabold leading-[0.85] text-gold">{v}</p><p className="mt-2">{t}</p></div>
             ))}
           </div>
           <p className="mt-8"><ExtLink className="font-bold underline" href={`${WWW}/admission-international/`} showHost={false}>Admission International page</ExtLink></p>
@@ -83,8 +83,8 @@ export default function Admissions() {
       <section aria-labelledby="help-h" className="wrap section">
         <h2 id="help-h" className="t-section">Talk to Admissions</h2>
         <dl className="mt-6 grid gap-6 md:grid-cols-2">
-          <div><dd className="font-display text-5xl font-black md:text-6xl"><a className="hover:bg-gold" href="tel:+917026452645">+91 70 2645 2645</a></dd><dt className="mt-1">Engineering, Agriculture and Architecture</dt></div>
-          <div><dd className="font-display text-5xl font-black md:text-6xl"><a className="hover:bg-gold" href="tel:+917026472647">+91 70 2647 2647</a></dd><dt className="mt-1">Liberal Arts and Business Studies, Law, Management, Medical and Allied Health Sciences, Hotel Management</dt></div>
+          <div><dd className="font-display text-5xl font-extrabold md:text-6xl"><a className="hover:bg-gold" href="tel:+917026452645">+91 70 2645 2645</a></dd><dt className="mt-1">Engineering, Agriculture and Architecture</dt></div>
+          <div><dd className="font-display text-5xl font-extrabold md:text-6xl"><a className="hover:bg-gold" href="tel:+917026472647">+91 70 2647 2647</a></dd><dt className="mt-1">Liberal Arts and Business Studies, Law, Management, Medical and Allied Health Sciences, Hotel Management</dt></div>
         </dl>
         <ExtLink className="link mt-6 inline-block" href="https://webstor.srmist.edu.in/web_assets/downloads/2026/srm-admission-brochure-2026-2027.pdf" showHost={false}>Admission brochure 2026-2027 (PDF)</ExtLink>
       </section>

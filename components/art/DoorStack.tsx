@@ -14,7 +14,7 @@ export function DoorStack() {
       {DOORS.map((d, i) => (
         <Link key={d.href} href={d.href} style={{ top: `calc(4.7rem + ${i * 4.75}rem)` }} className={`group sticky block border-t-[3px] border-black ${d.bg}`}>
           <div className="wrap grid min-h-[calc(100svh-19rem)] content-start gap-4 pb-8 md:min-h-[calc(100svh-15rem)] md:grid-cols-12">
-            <span className="block py-1 font-display text-[3.6rem] font-black uppercase leading-[1] group-hover:underline md:col-span-12 md:text-[3.9rem]">{d.title}</span>
+            <span className="block py-1 font-display text-[3.6rem] font-extrabold uppercase leading-[1] group-hover:underline md:col-span-12 md:text-[3.9rem]">{d.title}</span>
             <span className="lede self-end md:col-span-4">{d.line}</span>
             <span className="relative block aspect-[16/10] overflow-hidden border-[3px] border-black md:col-span-8 md:aspect-[21/9]">
               <Image src={d.img} alt={d.alt} fill sizes="(min-width:768px) 66vw, 100vw" className="door-img object-cover" />

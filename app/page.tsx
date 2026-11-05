@@ -15,21 +15,17 @@ import { WWW, accreditations, homeStats, news } from "@/data/site";
 export const metadata: Metadata = { title: { absolute: "SRMIST redesign concept: Learn. Leap. Lead." }, description: "Start here for SRMIST admissions, programmes and research." };
 
 const areas = ["Engineering & Technology", "Medicine", "Dentistry", "Management", "Law", "Architecture", "Science & Humanities", "Agricultural Sciences", "Pharmacy", "Nursing", "Public Health", "Physiotherapy", "Occupational Therapy"];
-const span = ["md:col-span-6 md:row-span-2 bg-blue text-white", "md:col-span-3 bg-gold", "md:col-span-3 bg-white", "md:col-span-3 bg-black text-white", "md:col-span-3 bg-white", "md:col-span-4 bg-white", "md:col-span-4 bg-black text-white", "md:col-span-4 bg-gold"];
 
 export default function Home() {
   return (
     <>
       <MaskHero />
-      <div className="overflow-hidden py-3">
-        <Ticker items={["NAAC A++", "NIRF 2025 University 11", "429 programmes", "Founded 1985", "Admissions open 2027"]} tilt={-1.2} />
-        <Ticker items={["Learn", "Leap", "Lead"]} tone="blue" reverse tilt={0.8} speed={26} />
-      </div>
+      <Ticker items={["NAAC A++", "NIRF 2025 University 11", "429 programmes", "Founded 1985", "Admissions open 2027"]} />
       <CampaignNotice />
 
       <section aria-labelledby="facts" className="wrap section">
         <h2 id="facts" className="sr-only">SRMIST at a glance</h2>
-        <ScrubText text="Since 1985, SRMIST has grown to more than 50,000 students and 3,200 academicians, on a green campus of over 250 acres." className="font-display text-[clamp(3rem,8.4vw,8.5rem)] font-black uppercase leading-[0.95]" />
+        <ScrubText text="Since 1985, SRMIST has grown to more than 50,000 students and 3,200 academicians, on a green campus of over 250 acres." marks={["1985,", "50,000", "3,200", "250"]} className="font-display text-[clamp(3rem,8.4vw,8.5rem)] font-extrabold uppercase leading-[1.08]" />
       </section>
 
       <DoorStack />
@@ -37,11 +33,11 @@ export default function Home() {
       <section aria-labelledby="bento" className="relative z-10 border-t-[3px] border-black bg-white">
         <div className="wrap section">
           <h2 id="bento" className="t-section">University in numbers</h2>
-          <dl className="mt-8 grid auto-rows-[minmax(10rem,auto)] gap-[3px] border-[3px] border-black bg-black md:grid-cols-12">
-            {homeStats.map(([v, l], i) => (
-              <div key={l} className={`flex flex-col justify-end p-5 ${span[i]}`}>
-                <dd className={`font-display font-black leading-[0.85] ${i === 0 ? "text-[clamp(4.5rem,10.5vw,10.5rem)]" : "text-7xl"}`}><Scramble value={v} /></dd>
-                <dt className="mt-2 font-semibold">{l}</dt>
+          <dl className="mt-8 border-b-[3px] border-black">
+            {homeStats.map(([v, l]) => (
+              <div key={l} className="grid items-baseline gap-x-6 border-t-[3px] border-black py-2 transition-colors hover:bg-gold md:grid-cols-12">
+                <dd className="font-display text-[clamp(3.75rem,9vw,9rem)] font-extrabold leading-[1] text-blue md:col-span-5"><Scramble value={v} /></dd>
+                <dt className="font-display text-[clamp(1.75rem,4vw,4rem)] font-extrabold uppercase leading-[1] md:col-span-7">{l}</dt>
               </div>
             ))}
           </dl>
@@ -52,7 +48,7 @@ export default function Home() {
         <div className="wrap section grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <h2 id="ranks" className="t-section">Ranked and accredited</h2>
-            <p className="mt-6 font-display text-[clamp(7rem,16vw,15rem)] font-black leading-[0.8] text-gold">A++</p>
+            <p className="mt-6 font-display text-[clamp(7rem,16vw,15rem)] font-extrabold leading-[0.8] text-gold">A++</p>
             <p className="mt-3 font-semibold">NAAC grade, 4th cycle, valid 16.06.2024 to 15.06.2031</p>
             <p className="mt-6 text-[0.95rem] text-white/85">Also accredited or recognised by: {accreditations.join(", ")}.</p>
           </div>
@@ -73,10 +69,12 @@ export default function Home() {
       <section aria-labelledby="areas" className="border-t-[3px] border-black bg-gold">
         <div className="wrap section pb-10">
           <h2 id="areas" className="t-section">Thirteen ways in</h2>
-          <ul className="mt-6 font-display text-[clamp(2.25rem,5.4vw,5.5rem)] font-black uppercase leading-[1.02]">
-            {areas.map((a, i) => (<li key={a} className="inline">{a}{i < areas.length - 1 ? <span className="px-3 text-blue">/</span> : null} </li>))}
+          <ul className="mt-6 flex flex-wrap gap-[3px] border-[3px] border-black bg-black">
+            {areas.map((a) => (
+              <li key={a} className="grow bg-white"><Link href="/academics#finder" className="block p-3 font-display text-[clamp(1.75rem,3.7vw,3.75rem)] font-extrabold uppercase leading-[1] hover:bg-black hover:text-gold">{a}</Link></li>
+            ))}
+            <li className="grow bg-blue text-white"><Link href="/academics#finder" className="block p-3 font-display text-[clamp(1.75rem,3.7vw,3.75rem)] font-extrabold uppercase leading-[1] hover:bg-black hover:text-gold">Find a programme</Link></li>
           </ul>
-          <Link href="/academics#finder" className="btn btn-line mt-8">Find a programme</Link>
         </div>
       </section>
       <Parallax src="/images/techpark.jpg" alt="Students walking past the colourful Tech Park building on the SRMIST campus" className="h-[60svh] border-y-[3px] border-black" />
