@@ -4,7 +4,6 @@ import Link from "next/link";
 import { CampaignNotice } from "@/components/CampaignNotice";
 import { ExtLink } from "@/components/ExtLink";
 import { CatalogueWall } from "@/components/art/CatalogueWall";
-import { Campus3D } from "@/components/art/Campus3D";
 import { CampusFilm } from "@/components/art/CampusFilm";
 import { DoorStack } from "@/components/art/DoorStack";
 import { ExpandImage } from "@/components/art/ExpandImage";
@@ -22,7 +21,6 @@ export default function Home() {
   return (
     <>
       <MaskHero />
-      <Campus3D />
       <CampaignNotice />
 
       <DoorStack />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { TourEmbed } from "@/components/TourEmbed";
 import { BUILDINGS, TOUR_URL } from "@/data/campus";
@@ -21,20 +22,15 @@ export default function CampusTour() {
       <section aria-labelledby="land-h" className="bg-tint">
         <div className="wrap section">
           <h2 id="land-h" className="t-section">Landmarks to look for</h2>
-          <p className="lede mt-4">Seen in the 3D reveal on the home page. Facts come from SRMIST's official building records.</p>
           <ul className="mt-8 grid gap-3 md:grid-cols-3">
             {BUILDINGS.map((b) => (
-              <li key={b.id} className="panel flex flex-col p-5">
-                <h3 className="t-card font-semibold">{b.name}</h3>
-                <p className="mt-2 text-ink-soft">{b.line}</p>
-                <ul className="mt-3 flex flex-wrap gap-1.5">{b.facts.map((f) => <li key={f} className="rounded-full border border-line px-2.5 py-1 text-sm">{f}</li>)}</ul>
-                <div className="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-4">
-                  {b.links.map(([l, h]) => <Link key={h} href={h} className="link py-1">{l}</Link>)}
-                </div>
+              <li key={b.id}>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-surface"><Image src={b.still} alt={`3D model of ${b.name}`} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover" /></div>
+                <h3 className="t-card mt-3 font-semibold">{b.name}</h3>
               </li>
             ))}
           </ul>
-          <Link href="/#campus-3d" className="btn btn-blue mt-8">See the landmarks in 3D</Link>
+          <Link href="/#campus-3d" className="btn btn-blue mt-8">See the campus in 3D</Link>
         </div>
       </section>
     </>

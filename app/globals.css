@@ -95,7 +95,7 @@
 /* Without JavaScript, pinned scroll scenes collapse to ordinary, readable sections. */
 html:not([data-js]) .fx-tall { height: auto !important; }
 html:not([data-js]) .fx-pin { position: relative !important; top: 0 !important; }
-html:not([data-js]) .fx-show { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+html:not([data-js]) .fx-show { opacity: 1 !important; visibility: visible !important; transform: none !important; clip-path: none !important; }
 html:not([data-js]) .fx-hide { display: none !important; }
 html:not([data-js]) .fx-scroll { overflow-x: auto !important; transform: none !important; }
 
