@@ -182,10 +182,9 @@ export function SrmGuide() {
         <div className="flex gap-2">
           <label htmlFor="guide-q" className="sr-only">Ask the SRM Guide</label>
           <input ref={input} id="guide-q" type="text" autoComplete="off" maxLength={LIMITS.question} value={text} onChange={(e) => setText(e.target.value)}
-            placeholder="Ask about admissions, programmes, research" aria-describedby="guide-privacy" className="field mt-0 min-w-0 flex-1" />
+            placeholder="Ask about admissions, programmes, research" className="field mt-0 min-w-0 flex-1" />
           <button type="submit" disabled={busy || text.trim().length < 2} className="btn btn-blue shrink-0 disabled:opacity-50">Ask</button>
         </div>
-        <p id="guide-privacy" className="mt-2 text-xs text-ink-soft">Don't share personal details. With AI on, questions go to OpenAI to find pages; this site stores nothing. Answers can be wrong; check official pages.</p>
       </form>
     </div>
   );

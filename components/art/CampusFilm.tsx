@@ -14,7 +14,7 @@ const FRAMES = [
   ["/images/walkway.jpg", "Campus walkways", "A covered walkway through the SRMIST campus"],
 ] as const;
 const N = FRAMES.length;
-const INTERVAL = 4500;
+const INTERVAL = 3500;
 
 // Signed distance from the current card, wrapping so the carousel loops: -3 … 3.
 const offset = (i: number, cur: number) => {
@@ -25,15 +25,17 @@ const offset = (i: number, cur: number) => {
 
 // Seven campus photos on a 3D carousel. It advances on its own every few seconds while it is on
 // screen, and never takes over page scrolling: scrolling down always moves the page.
-// Autoplay pauses on hover, focus, touch, the pause button, an off-screen carousel or a hidden tab,
-// and is off entirely with reduced motion. Swipe, arrow keys, the buttons or a side card move it.
+// Autoplay runs under a resting mouse and carries on after a click or swipe. It stops for the pause
+// button, keyboard focus inside it, an off-screen carousel or a hidden tab, and is off entirely with
+// reduced motion. Swipe, arrow keys, the buttons or a side card move it.
 export function CampusFilm() {
   const root = useRef<HTMLElement>(null);
   const reduced = useCalm();
   const [cur, setCur] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const [hold, setHold] = useState(false); // hover or focus inside
-  const inView = useInView(root, { amount: 0.2 });
+  const [hold, setHold] = useState(false); // keyboard focus inside
+  const inView = useInView(root, { amount: 0.5 });
+  const seen = useInView(root, { once: true, margin: "100% 0px" });
   const [tabHidden, setTabHidden] = useState(false);
   const visible = inView && !tabHidden;
   const [said, setSaid] = useState("");
@@ -71,18 +73,17 @@ export function CampusFilm() {
     drag.current = null;
     if (!d || d.id !== e.pointerId) return;
     const dx = e.clientX - d.x;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(e.clientY - d.y)) { go(cur + (dx < 0 ? 1 : -1)); if (e.pointerType !== "mouse") setPlaying(false); }
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(e.clientY - d.y)) go(cur + (dx < 0 ? 1 : -1));
   };
 
   const btn = "grid h-11 w-11 place-items-center rounded-full border border-line text-lg hover:bg-tint";
 
   return (
-    <section ref={root} aria-labelledby="film" aria-roledescription="carousel" className="section relative z-10 overflow-hidden bg-surface"
-      onMouseEnter={() => setHold(true)} onMouseLeave={() => setHold(false)}
-      onFocus={() => setHold(true)} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setHold(false); }}>
-      <div className="wrap flex w-full flex-wrap items-end justify-between gap-4">
+    <section ref={root} id="film" aria-labelledby="film-h" aria-roledescription="carousel" className="page page-fit z-10 overflow-hidden bg-surface"
+      onFocus={(e) => { if (e.target.matches(":focus-visible")) setHold(true); }} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setHold(false); }}>
+      <div data-rise className="wrap flex w-full flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 id="film" className="t-section">Life on campus</h2>
+          <h2 id="film-h" className="t-section">Life on campus</h2>
           <p className="mt-2 text-ink-soft"><span className="font-semibold text-fg">{FRAMES[cur][1]}</span> · {cur + 1} of {N}</p>
         </div>
         <div className="flex items-center gap-2">
@@ -97,9 +98,9 @@ export function CampusFilm() {
       </div>
       <p aria-live="polite" className="sr-only">{said}</p>
 
-      <div tabIndex={0} onKeyDown={onKey} onPointerDown={down} onPointerUp={up} onPointerCancel={() => (drag.current = null)}
+      <div data-rise="pop" style={{ "--n": 1 } as CSSProperties} tabIndex={0} onKeyDown={onKey} onPointerDown={down} onPointerUp={up} onPointerCancel={() => (drag.current = null)}
         aria-label="Campus photos. Use the arrow keys, the buttons or swipe to move between them."
-        className="coverflow relative mx-auto mt-8 h-[clamp(17rem,calc(var(--vh)*58),38rem)] max-w-[90rem] select-none [touch-action:pan-y]">
+        className="coverflow relative mx-auto mt-4 min-h-64 w-full max-w-[90rem] flex-1 select-none [touch-action:pan-y] md:mt-6">
         {FRAMES.map(([src, label, alt], i) => {
           const d = offset(i, cur);
           const a = Math.abs(d);
@@ -108,7 +109,7 @@ export function CampusFilm() {
               onClick={() => { if (d !== 0) go(i); }}
               className={`cover-card absolute left-1/2 top-0 h-full w-[78%] overflow-hidden rounded-2xl bg-tint sm:w-[58%] lg:w-[44%] ${d === 0 ? "is-front" : ""}`}
               style={{ "--d": d, "--a": a, zIndex: 10 - a, opacity: a > 2 ? 0 : a === 2 ? 0.45 : 1, visibility: a > 2 ? "hidden" : "visible" } as CSSProperties}>
-              {a <= 2 ? <Image src={src} alt={d === 0 ? alt : ""} fill draggable={false} loading={a <= 1 ? "eager" : "lazy"} sizes="(min-width:1024px) 44vw, (min-width:640px) 58vw, 78vw" className="pointer-events-none object-cover" /> : null}
+              {a <= 2 || seen ? <Image src={src} alt={d === 0 ? alt : ""} fill draggable={false} loading={a <= 1 || seen ? "eager" : "lazy"} sizes="(min-width:1024px) 44vw, (min-width:640px) 58vw, 78vw" className="pointer-events-none object-cover" /> : null}
               <div aria-hidden="true" className="cover-shade absolute inset-0" />
               <figcaption className="absolute bottom-3 left-3 rounded-full bg-black/65 px-3.5 py-1.5 text-sm font-medium text-white">{label}</figcaption>
             </figure>
@@ -116,7 +117,7 @@ export function CampusFilm() {
         })}
       </div>
 
-      <div aria-hidden="true" className="wrap mt-6 flex justify-center gap-1.5">
+      <div aria-hidden="true" className="wrap mt-4 flex w-full justify-center gap-1.5 md:mt-5">
         {FRAMES.map((f, i) => (
           <span key={f[0]} className="h-1 w-8 overflow-hidden rounded-full bg-line">
             {i === cur ? <span key={`${cur}-${running}`} className={`block h-full bg-accent ${running ? "cover-progress" : ""}`} style={{ "--t": `${INTERVAL}ms` } as CSSProperties} /> : i < cur ? <span className="block h-full bg-accent/50" /> : null}

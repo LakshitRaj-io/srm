@@ -16,7 +16,7 @@ export function CampaignNotice() {
     try { localStorage.setItem(KEY, "1"); } catch {}
   };
   return (
-    <aside aria-label="Campaign" className="wrap py-8">
+    <aside aria-label="Campaign" className="pb-3">
       <div className="flex items-center justify-between gap-4 rounded-xl border border-line bg-surface py-1 pl-4 pr-1 text-[0.95rem]">
         <p>
           Alumni campaign: 30 days, 30 scholars, 30 global platforms.{" "}

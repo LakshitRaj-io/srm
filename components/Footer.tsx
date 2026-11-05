@@ -6,7 +6,8 @@ import { ExtLink } from "./ExtLink";
 const COLUMNS = [
   { title: "Study", links: [["Programme finder", "/academics#finder"], ["Study areas", "/academics#areas"], ["Programme example", "/academics#detail"]] },
   { title: "Apply", links: [["Find your route", "/admissions#finder"], ["How to apply", "/admissions#steps"], ["Fees and scholarships", "/admissions#funding"], ["Applying from abroad", "/admissions#international"]] },
-  { title: "Research", links: [["Your pathway", "/research#pathways"], ["Centres", "/research#centres"], ["Research record", "/research#record"], ["Directorate", "/research#contact"], ["Virtual campus tour", "/campus-tour"]] },
+  { title: "Campus", links: [["Virtual campus tour", "/campus-tour"], ["Campus in 3D", "/#campus-3d"], ["Hostels", "/hostels"]] },
+  { title: "Research", links: [["Your pathway", "/research#pathways"], ["Centres", "/research#centres"], ["Research record", "/research#record"], ["Directorate", "/research#contact"]] },
 ];
 const SOCIAL = [
   ["Facebook", "https://www.facebook.com/SRMUniversityOfficial"],
@@ -31,7 +32,7 @@ export function Footer() {
 
       <div className="bg-surface">
         <div className="wrap grid grid-cols-2 gap-x-6 gap-y-10 py-12 lg:grid-cols-12">
-          <address className="col-span-2 not-italic lg:col-span-4">
+          <address className="col-span-2 not-italic lg:col-span-3">
             <div className="flex items-center gap-4">
               <Image src="/images/srm-crest.png" alt="" width={48} height={48} className="h-12 w-12" />
               <p className="font-semibold leading-tight">SRM Institute of<br />Science and Technology</p>
@@ -47,7 +48,7 @@ export function Footer() {
               </ul>
             </nav>
           ))}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <h2 className="text-sm font-semibold text-ink-soft" style={{ letterSpacing: 0 }}>Follow</h2>
             <ul className="mt-2">
               {SOCIAL.map(([l, h]) => (<li key={h}><ExtLink href={h} showHost={false} className="block py-1 text-[0.95rem] text-ink-soft hover:text-accent">{l}</ExtLink></li>))}

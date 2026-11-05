@@ -1,26 +1,17 @@
-// A single Blender model on a transparent canvas, drawn only when something changes. Loaded with a
-// dynamic import, so three.js never ships with the first page load. Sources: assets-src/blender.
+// The campus landmarks are positioned on one real, georeferenced OpenStreetMap tile.
 import {
-  Box3, CanvasTexture, Color, DirectionalLight, Group, HemisphereLight, Mesh, MeshBasicMaterial, MeshStandardMaterial, PMREMGenerator, PerspectiveCamera,
-  PlaneGeometry, SRGBColorSpace, Scene, Vector3, WebGLRenderer, type Object3D,
+  Box3, BoxGeometry, Color, DoubleSide, Group, HemisphereLight, LinearFilter, Mesh, MeshBasicMaterial,
+  MeshStandardMaterial, PMREMGenerator, PerspectiveCamera, Raycaster, RingGeometry, SRGBColorSpace,
+  Scene, TextureLoader, Vector2, Vector3, WebGLRenderer,
+  type Object3D,
 } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { CAMPUS_MAP_TILE } from "@/data/campus";
 
-// Only the front and one side of each building are documented, so turning stops before the rear.
-export const YAW_LIMIT = 0.95;
-const START_YAW = -0.5;
-
-function contactShadow() {
-  const c = document.createElement("canvas");
-  c.width = c.height = 256;
-  const g = c.getContext("2d")!;
-  const r = g.createRadialGradient(128, 128, 20, 128, 128, 128);
-  r.addColorStop(0, "rgba(0,0,0,0.34)");
-  r.addColorStop(1, "rgba(0,0,0,0)");
-  g.fillStyle = r;
-  g.fillRect(0, 0, 256, 256);
-  return new CanvasTexture(c);
-}
+type CampusId = "ub" | "tp" | "tp2";
+type CampusAsset = { id: CampusId; file: string; mapPosition: { x: number; z: number } };
+const COLORS: Record<CampusId, string> = { ub: "#0755b2", tp: "#e96612", tp2: "#d0a20a" };
+const MAP_OVERVIEW = new Vector3(13, 0, -74);
 
 function free(o: Object3D) {
   o.traverse((x) => {
@@ -34,109 +25,236 @@ function free(o: Object3D) {
   });
 }
 
-export function createModelView(canvas: HTMLCanvasElement, opts: { small: boolean }) {
+export function createCampusMapView(canvas: HTMLCanvasElement, opts: { small: boolean }) {
   let dirty = true;
-  let yaw = START_YAW;
-  let aim = START_YAW;
+  let yaw = -0.12;
+  let aim = yaw;
+  let zoom = 1;
+  let aimZoom = 1;
   let raf = 0;
   let running = false;
-  let radius = 60;
-  let height = 64;
+  let disposed = false;
+  const target = MAP_OVERVIEW.clone();
+  const aimTarget = MAP_OVERVIEW.clone();
 
-  const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: !opts.small, powerPreference: opts.small ? "low-power" : "default" });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, opts.small ? 1.25 : 1.75));
+  const renderer = new WebGLRenderer({ canvas, alpha: false, antialias: !opts.small, powerPreference: opts.small ? "low-power" : "default" });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, opts.small ? 1.25 : 1.65));
   renderer.outputColorSpace = SRGBColorSpace;
-  renderer.setClearAlpha(0);
 
   const scene = new Scene();
-  const camera = new PerspectiveCamera(26, 1, 5, 2000);
+  scene.background = new Color("#dce7e1");
+  const camera = new PerspectiveCamera(38, 1, 0.1, 1800);
 
-  // A plain sky for the glass to reflect.
   const pm = new PMREMGenerator(renderer);
   const sky = new Scene();
-  sky.background = new Color("#a9cbef");
-  scene.environment = pm.fromScene(sky, 0.04).texture;
-  scene.environmentIntensity = 0.6;
+  sky.background = new Color("#c7d9e8");
+  const environment = pm.fromScene(sky, 0.04);
+  scene.environment = environment.texture;
+  scene.environmentIntensity = 0.42;
   pm.dispose();
 
-  scene.add(new HemisphereLight("#ffffff", "#b9b3a6", 1.7));
-  const sun = new DirectionalLight("#fff4e4", 1.9);
-  sun.position.set(-160, 240, 300);
-  scene.add(sun);
+  scene.add(new HemisphereLight("#ffffff", "#949990", 1.65));
 
-  const pivot = new Group();
-  scene.add(pivot);
-  const shadowTex = contactShadow();
-  const shadow = new Mesh(new PlaneGeometry(1, 1), new MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
-  shadow.rotation.x = -Math.PI / 2;
-  scene.add(shadow);
+  const campus = new Group();
+  scene.add(campus);
 
-  let current: Object3D | null = null;
+  // A thin map board gives the tile a clean edge. The visible ground is the OSM tile itself.
+  const mapBase = new Mesh(new BoxGeometry(CAMPUS_MAP_TILE.size, 1.4, CAMPUS_MAP_TILE.size), new MeshStandardMaterial({ color: "#d9e1d9", roughness: 1 }));
+  mapBase.position.y = -0.85;
+  campus.add(mapBase);
+  const mapMaterial = new MeshBasicMaterial({ color: "#f2f4ef", side: DoubleSide });
+  const ground = new Mesh(new BoxGeometry(CAMPUS_MAP_TILE.size, 0.08, CAMPUS_MAP_TILE.size), mapMaterial);
+  ground.position.y = -0.1;
+  campus.add(ground);
+
+  const tileUrl = `https://tile.openstreetmap.org/${CAMPUS_MAP_TILE.zoom}/${CAMPUS_MAP_TILE.x}/${CAMPUS_MAP_TILE.y}.png`;
+  const tileLoader = new TextureLoader();
+  tileLoader.setCrossOrigin("anonymous");
+  tileLoader.load(tileUrl, (texture) => {
+    if (disposed) { texture.dispose(); return; }
+    texture.colorSpace = SRGBColorSpace;
+    texture.magFilter = LinearFilter;
+    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    mapMaterial.map = texture;
+    mapMaterial.color.set("#ffffff");
+    mapMaterial.needsUpdate = true;
+    dirty = true;
+  }, undefined, () => console.warn("[campus map] OpenStreetMap tile could not be loaded; showing the map surface without it."));
+
   const loader = new GLTFLoader();
+  const loaded = new Map<CampusId, Group>();
+  const rings = new Map<CampusId, Mesh>();
+  const raycaster = new Raycaster();
+  const pointer = new Vector2();
 
-  function frameCamera() {
+  function updateCamera() {
+    camera.position.set(target.x + 225 / zoom, target.y + 202 / zoom, target.z + 265 / zoom);
+    camera.lookAt(target.x, target.y + 11, target.z);
+    camera.updateMatrixWorld();
+  }
+
+  function resize() {
     const w = canvas.clientWidth;
     const h = canvas.clientHeight;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    const half = (camera.fov * Math.PI) / 360;
-    const fitV = (height * 0.62) / Math.tan(half);
-    const fitH = (radius * 1.08) / (Math.tan(half) * camera.aspect);
-    camera.position.set(0, height * 0.3, Math.max(fitV, fitH) + radius * 0.5);
-    camera.lookAt(0, height * 0.47, 0);
     camera.updateProjectionMatrix();
+    updateCamera();
     dirty = true;
   }
 
-  async function show(file: string) {
-    const g = await loader.loadAsync(`/models/${file}${opts.small ? "-sm" : ""}.glb`);
-    if (current) { pivot.remove(current); free(current); }
-    current = g.scene;
-    const box = new Box3().setFromObject(current);
-    const size = box.getSize(new Vector3());
-    const mid = box.getCenter(new Vector3());
-    current.position.set(-mid.x, -box.min.y, -mid.z);
-    pivot.add(current);
-    height = size.y;
-    radius = Math.hypot(size.x, size.z) / 2;
-    shadow.scale.set(radius * 2.7, radius * 2.7, 1);
-    shadow.position.y = 0.05;
-    current.traverse((o) => {
-      const m = (o as Mesh).material as MeshStandardMaterial | undefined;
-      if (m?.map) m.map.anisotropy = opts.small ? 2 : 8;
+  function focus(id: CampusId | null) {
+    if (!id) {
+      aimTarget.copy(MAP_OVERVIEW);
+      aimZoom = 1;
+      return;
+    }
+    const anchor = loaded.get(id);
+    if (anchor) {
+      campus.updateMatrixWorld(true);
+      anchor.getWorldPosition(aimTarget);
+      aimTarget.y = 0;
+    }
+    aimZoom = 1.35;
+  }
+
+  function select(id: CampusId) {
+    for (const [key, ring] of rings) {
+      const material = ring.material as MeshBasicMaterial;
+      material.color.set(key === id ? "#f5bf35" : "#ffffff");
+      material.opacity = key === id ? 0.96 : 0.56;
+    }
+    focus(id);
+    dirty = true;
+  }
+
+  async function load(assets: CampusAsset[]) {
+    const results = await Promise.all(assets.map(async (asset) => {
+      const suffix = opts.small ? "-sm" : "";
+      const gltf = await loader.loadAsync(`/models/${asset.file}${suffix}.glb`);
+      return { asset, model: gltf.scene };
+    }));
+    if (disposed) {
+      results.forEach(({ model }) => free(model));
+      return;
+    }
+
+    results.forEach(({ asset, model }) => {
+      const bounds = new Box3().setFromObject(model);
+      const size = bounds.getSize(new Vector3());
+      const center = bounds.getCenter(new Vector3());
+      model.position.set(-center.x, -bounds.min.y, -center.z);
+      model.userData.buildingId = asset.id;
+      const anchor = new Group();
+      anchor.position.set(asset.mapPosition.x, 0, asset.mapPosition.z);
+      anchor.userData.buildingId = asset.id;
+      anchor.add(model);
+      loaded.set(asset.id, anchor);
+      campus.add(anchor);
+
+      const radius = Math.max(size.x, size.z) * 0.58 + 2;
+      const ring = new Mesh(new RingGeometry(radius, radius + 1.5, 56), new MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.56, side: DoubleSide, depthWrite: false }));
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.set(asset.mapPosition.x, 0.16, asset.mapPosition.z);
+      campus.add(ring);
+      rings.set(asset.id, ring);
+
+      const shadow = new Mesh(new BoxGeometry(Math.max(size.x * 0.78, 8), 0.12, Math.max(size.z * 0.78, 8)), new MeshBasicMaterial({ color: "#26382f", transparent: true, opacity: 0.22, depthWrite: false }));
+      shadow.position.set(asset.mapPosition.x, 0.1, asset.mapPosition.z);
+      campus.add(shadow);
+
+      model.traverse((o) => {
+        const mesh = o as Mesh;
+        const materials = [mesh.material].flat();
+        materials.forEach((material) => {
+          if (!material) return;
+          const textured = material as MeshStandardMaterial;
+          if (textured.map) textured.map.anisotropy = opts.small ? 2 : 8;
+        });
+      });
     });
-    yaw = aim = START_YAW;
-    frameCamera();
+    resize();
+  }
+
+  function buildingAt(clientX: number, clientY: number): CampusId | null {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height || loaded.size === 0) return null;
+    pointer.set(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
+    raycaster.setFromCamera(pointer, camera);
+    const roots = [...loaded.values()];
+    const hit = raycaster.intersectObjects(roots, true)[0]?.object;
+    let node: Object3D | null = hit ?? null;
+    while (node && !node.userData.buildingId) node = node.parent;
+    if (node?.userData.buildingId) return node.userData.buildingId as CampusId;
+
+    // The models have transparent edges; accept taps inside their projected silhouette too.
+    campus.updateMatrixWorld(true);
+    camera.updateMatrixWorld();
+    const candidates = [...loaded.entries()].map(([id, anchor]) => {
+      const bounds = new Box3().setFromObject(anchor);
+      const min = new Vector2(Infinity, Infinity);
+      const max = new Vector2(-Infinity, -Infinity);
+      for (const x of [bounds.min.x, bounds.max.x]) for (const y of [bounds.min.y, bounds.max.y]) for (const z of [bounds.min.z, bounds.max.z]) {
+        const point = new Vector3(x, y, z).project(camera);
+        min.x = Math.min(min.x, rect.left + ((point.x + 1) / 2) * rect.width);
+        max.x = Math.max(max.x, rect.left + ((point.x + 1) / 2) * rect.width);
+        min.y = Math.min(min.y, rect.top + ((1 - point.y) / 2) * rect.height);
+        max.y = Math.max(max.y, rect.top + ((1 - point.y) / 2) * rect.height);
+      }
+      const inside = clientX >= min.x && clientX <= max.x && clientY >= min.y && clientY <= max.y;
+      const dx = clientX - (min.x + max.x) / 2;
+      const dy = clientY - (min.y + max.y) / 2;
+      return { id, inside, distance: dx * dx + dy * dy };
+    }).filter((candidate) => candidate.inside).sort((a, b) => a.distance - b.distance);
+    return candidates[0]?.id ?? null;
   }
 
   function frame() {
     raf = requestAnimationFrame(frame);
-    const delta = aim - yaw;
-    if (Math.abs(delta) < 0.0005 && !dirty) return;
-    yaw += delta * 0.18;
-    pivot.rotation.y = yaw;
+    const yawDelta = aim - yaw;
+    if (Math.abs(yawDelta) > 0.0005) {
+      yaw += yawDelta * 0.16;
+      campus.rotation.y = yaw;
+      dirty = true;
+    }
+    if (target.distanceToSquared(aimTarget) > 0.01) {
+      target.lerp(aimTarget, 0.12);
+      dirty = true;
+    }
+    if (Math.abs(zoom - aimZoom) > 0.001) {
+      zoom += (aimZoom - zoom) * 0.12;
+      dirty = true;
+    }
+    if (!dirty) return;
+    updateCamera();
     renderer.render(scene, camera);
     dirty = false;
   }
 
+  resize();
   return {
-    show,
-    resize: frameCamera,
-    turn(by: number) { aim = Math.max(-YAW_LIMIT, Math.min(YAW_LIMIT, aim + by)); },
+    load,
+    select,
+    buildingAt,
+    resize,
+    turn(by: number) { aim += by; },
+    zoomBy(factor: number) { aimZoom = Math.min(1.85, Math.max(0.72, aimZoom * factor)); dirty = true; },
+    overview() { focus(null); dirty = true; },
     setRunning(on: boolean) {
       if (on === running) return;
       running = on;
       if (on) { dirty = true; raf = requestAnimationFrame(frame); } else cancelAnimationFrame(raf);
     },
     dispose() {
+      disposed = true;
       cancelAnimationFrame(raf);
       running = false;
-      if (current) free(current);
-      shadowTex.dispose();
+      free(campus);
+      environment.dispose();
       renderer.dispose();
     },
   };
 }
 
-export type ModelView = ReturnType<typeof createModelView>;
+export type CampusMapView = ReturnType<typeof createCampusMapView>;

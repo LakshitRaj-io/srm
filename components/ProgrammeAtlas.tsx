@@ -34,7 +34,7 @@ export function ProgrammeAtlas() {
   const [q, setQ] = useState("");
   const [level, setLevel] = useState("");
   const [duration, setDuration] = useState("");
-  const [open, setOpen] = useState<string[]>([ORDER[0]]);
+  const [open, setOpen] = useState<string[]>([]);
   const [shown, setShown] = useState<Record<string, number>>({});
   const [sel, setSel] = useState<CatalogueEntry | null>(null);
   const dq = useDeferredValue(q);
@@ -56,7 +56,7 @@ export function ProgrammeAtlas() {
   ];
 
   return (
-    <div>
+    <div className="flex min-h-0 flex-1 flex-col">
       <form role="search" aria-label="Programmes" onSubmit={(e) => e.preventDefault()} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-12">
         <div className="sm:col-span-2 lg:col-span-6">
           <label htmlFor={`${id}q`} className="text-sm font-medium">Programme name</label>
@@ -78,7 +78,7 @@ export function ProgrammeAtlas() {
         </div>
       </form>
 
-      <div className="mt-6 flex min-h-11 flex-wrap items-center gap-x-4 gap-y-2">
+      <div className="mt-1 flex min-h-9 flex-wrap items-center gap-x-4 gap-y-2">
         <p role="status" aria-live="polite" className="text-lg font-semibold tracking-tight">{results.length} of {CATALOGUE.length} programmes</p>
         {chips.length ? (
           <ul className="flex flex-wrap items-center gap-2" aria-label="Active filters">
@@ -90,8 +90,8 @@ export function ProgrammeAtlas() {
         ) : null}
       </div>
 
-      <div className="mt-5 grid items-start gap-6 lg:grid-cols-12 lg:gap-10">
-        <div className="min-w-0 lg:col-span-7">
+      <div className="mt-2 grid min-h-0 flex-1 items-start gap-6 lg:grid-cols-12 lg:grid-rows-[minmax(0,1fr)] lg:gap-10">
+        <div className="min-w-0 lg:col-span-7 lg:h-full lg:overflow-y-auto lg:overscroll-contain lg:pr-3">
           {groups.length === 0 ? (
             <div className="rounded-2xl bg-tint p-6">
               <p className="font-medium">No programmes match.</p>
@@ -107,13 +107,13 @@ export function ProgrammeAtlas() {
                 return (
                   <li key={g.level} className="border-b border-line">
                     <h3 className="text-base tracking-normal">
-                      <button type="button" aria-expanded={on} aria-controls={panel} onClick={() => toggle(g.level)} disabled={filtered} className="grid min-h-14 w-full grid-cols-[1fr_auto_1.25rem] items-center gap-3 py-3 text-left font-semibold enabled:hover:text-accent">
+                      <button type="button" aria-expanded={on} aria-controls={panel} onClick={() => toggle(g.level)} disabled={filtered} className="grid min-h-11 w-full grid-cols-[1fr_auto_1.25rem] items-center gap-3 py-1 text-left font-semibold enabled:hover:text-accent lg:min-h-9">
                         <span>{NAMES[g.level]}</span>
                         <span className="font-normal tabular-nums text-ink-soft">{g.items.length}</span>
                         <svg aria-hidden="true" viewBox="0 0 12 12" className={`h-3 w-3 justify-self-end transition-transform ${on ? "rotate-180" : ""} ${filtered ? "opacity-0" : ""}`}><path d="M2 4.5 6 8.5l4-4" fill="none" stroke="currentColor" strokeWidth="1.6" /></svg>
                       </button>
                     </h3>
-                    <div aria-hidden="true" className="-mt-1 mb-2 h-1 overflow-hidden rounded-full bg-tint"><div className="h-full rounded-full bg-accent" style={{ width: `${Math.max(1.5, (g.items.length / CATALOGUE.length) * 100)}%` }} /></div>
+                    <div aria-hidden="true" className="-mt-0.5 mb-1 h-1 overflow-hidden rounded-full bg-tint"><div className="h-full rounded-full bg-accent" style={{ width: `${Math.max(1.5, (g.items.length / CATALOGUE.length) * 100)}%` }} /></div>
                     {on ? (
                       <div id={panel} className="pb-3">
                         <ul>
@@ -139,7 +139,7 @@ export function ProgrammeAtlas() {
           )}
         </div>
 
-        <aside aria-label="Selected programme" className="hidden rounded-3xl bg-tint p-7 lg:sticky lg:top-24 lg:col-span-5 lg:block">
+        <aside aria-label="Selected programme" className="hidden rounded-3xl bg-tint p-7 lg:col-span-5 lg:block">
           <div aria-live="polite">
             {sel ? (
               <>
@@ -157,11 +157,11 @@ export function ProgrammeAtlas() {
         </aside>
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-3">
+      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
         <Link href="/academics#finder" className="btn btn-blue">Open the full programme finder</Link>
         <Link href="/academics#pf-ask" className="btn btn-line">Not sure? Describe what you enjoy</Link>
+        <p className="short-hide text-sm text-ink-soft lg:max-w-sm">Details as listed in the official Program Finder. Confirm eligibility and fees on each official page.</p>
       </div>
-      <p className="mt-4 text-sm text-ink-soft">Details as listed in the official Program Finder. Confirm eligibility and fees on each official page.</p>
     </div>
   );
 }
