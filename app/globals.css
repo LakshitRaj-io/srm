@@ -64,6 +64,11 @@
   .orbit:hover .orbit-ring, .orbit:hover .orbit-node, .orbit:focus-within .orbit-ring, .orbit:focus-within .orbit-node { animation-play-state: paused; }
 
 
+  .mask-sheet { background: #fff; mix-blend-mode: screen; }
+  .mask-text { color: #000; }
+  [data-theme="dark"] .mask-sheet { background: #000; mix-blend-mode: multiply; }
+  [data-theme="dark"] .mask-text { color: #fff; }
+
   .stage { --mx: 0; --my: 0; }
   .stage-bg { transform: translate3d(calc(var(--mx) * -22px), calc(var(--my) * -16px), 0); transition: transform 0.4s ease-out; }
   .stage-img { opacity: 0; transform: scale(1.08); transition: opacity 0.8s, transform 7s linear; }
@@ -84,10 +89,10 @@
 @supports not (overflow: clip) { body { overflow-x: hidden; } }
 
 /* Without JavaScript, pinned scroll scenes collapse to ordinary, readable sections. */
-html:not([data-js]) .fx-tall { height: auto !important; }
-html:not([data-js]) .fx-pin { position: relative !important; top: 0 !important; }
-html:not([data-js]) .fx-show { opacity: 1 !important; visibility: visible !important; transform: none !important; clip-path: none !important; }
-html:not([data-js]) .fx-hide { display: none !important; }
+html:not([data-js]) .fx-tall, html[data-lite] .fx-tall { height: auto !important; }
+html:not([data-js]) .fx-pin, html[data-lite] .fx-pin { position: relative !important; top: 0 !important; }
+html:not([data-js]) .fx-show, html[data-lite] .fx-show { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; transform: none !important; clip-path: none !important; }
+html:not([data-js]) .fx-hide, html[data-lite] .fx-hide { display: none !important; }
 html:not([data-js]) .fx-scroll { overflow-x: auto !important; transform: none !important; }
 
 /* Devices flagged by the layout script: no decorative animation or heavy compositing. */
@@ -137,6 +142,10 @@ html[data-js] .bento:not(.bento-in) .tile { opacity: 0; }
   .guide-panel, .guide-wait, .coin, .orbit3d-spin, .cover-progress, .bento-in .tile { animation: none; }
   .cover-card, .cover-shade, .tile { transition: none; }
   html { scroll-behavior: auto; }
+  .fx-tall { height: auto !important; }
+  .fx-pin { position: relative !important; top: 0 !important; }
+  .fx-show { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; transform: none !important; clip-path: none !important; }
+  .fx-hide { display: none !important; }
   .orbit-ring, .orbit-node, .slam, .stage-line { animation: none; }
   .btn, .stage-bg, .stage-img { transition: none; }
 }

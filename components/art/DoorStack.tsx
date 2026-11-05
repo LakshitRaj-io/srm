@@ -10,7 +10,7 @@ const DOORS = [
 // The three journeys, as equal entry cards.
 export function DoorStack() {
   return (
-    <nav id="start" aria-label="Start here" className="wrap grid gap-4 py-16 md:grid-cols-3 md:py-24">
+    <nav id="start" aria-label="Start here" className="wrap grid -scroll-mt-8 gap-4 py-16 md:grid-cols-3 md:py-24">
       {DOORS.map((d) => (
         <Link key={d.href} href={d.href} className={`group flex flex-col overflow-hidden rounded-2xl border border-line transition-colors hover:border-accent ${d.bg}`}>
           <span className="block p-6 pb-4">

@@ -98,6 +98,7 @@ npx vercel --prod
 
 ## Responsive, motion and browser support
 
+- The homepage opens with the SRM letters as a window onto the campus photo (`components/art/MaskHero.tsx`). It uses only the photo and CSS transforms, and has a "Skip intro" link.
 - The campus gallery is a 3D carousel that advances every few seconds and never takes over page scrolling. It pauses on hover, focus, touch and when off screen, has a pause button, swipe, previous/next buttons and arrow keys, and does not autoplay with reduced motion.
 - A small script in `app/layout.tsx` sets `data-lite` on devices with little memory, few cores or data saver on, which turns off decorative motion. The theme follows the system until a visitor chooses.
 - `prefers-reduced-motion` replaces pinned and animated scenes with static layouts.

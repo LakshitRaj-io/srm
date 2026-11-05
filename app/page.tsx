@@ -7,6 +7,7 @@ import { BuildingViewer } from "@/components/art/BuildingViewer";
 import { ExtLink } from "@/components/ExtLink";
 import { CampusFilm } from "@/components/art/CampusFilm";
 import { DoorStack } from "@/components/art/DoorStack";
+import { MaskHero } from "@/components/art/MaskHero";
 import { NumbersBento } from "@/components/art/NumbersBento";
 import { Parallax } from "@/components/art/Parallax";
 import { RankBoard } from "@/components/art/RankBoard";
@@ -19,18 +20,7 @@ const areas = ["Engineering & Technology", "Medicine", "Dentistry", "Management"
 export default function Home() {
   return (
     <>
-      <section className="on-dark relative isolate flex min-h-[calc(var(--vh)*100-var(--hdr))] items-end overflow-hidden bg-black text-white">
-        <Image src="/images/campus.jpg" alt="Aerial view of the SRMIST Kattankulathur campus beside a lake" fill priority sizes="100vw" className="-z-10 object-cover" />
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/45 via-45% to-transparent" />
-        <div className="wrap w-full pb-14 pt-24 md:pb-20">
-          <h1 className="t-hero">Learn. Leap. Lead.</h1>
-          <p className="lede mt-4">SRM Institute of Science and Technology is a multidisciplinary university, founded in 1985 and accredited A++ by NAAC.</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/academics#finder" className="btn btn-gold">Find a programme</Link>
-            <Link href="/admissions" className="btn btn-line">Admissions 2027</Link>
-          </div>
-        </div>
-      </section>
+      <MaskHero />
       <CampaignNotice />
 
       <DoorStack />
