@@ -184,7 +184,7 @@ Content was read from the pages in section 2 on 5 November 2026. Each fact in `d
 | Content | Source |
 | --- | --- |
 | 429 programmes (name, level, duration, fee, intake, link) | https://www.srmist.edu.in/program-finder/ |
-| NAAC and NIRF 2025 figures | https://www.srmist.edu.in/about-us/accreditations-and-rankings/ |
+| NAAC, NIRF 2025 and QS figures, accreditation bodies | https://www.srmist.edu.in/about-us/accreditations-and-rankings/ |
 | Application routes | https://www.srmist.edu.in/admission-india/ |
 | International waivers | https://www.srmist.edu.in/admission-international/ |
 | Scholarship categories | https://www.srmist.edu.in/admission-india/engineering/scholarships/ |
@@ -195,10 +195,15 @@ Content was read from the pages in section 2 on 5 November 2026. Each fact in `d
 | --- | --- |
 | `public/images/campus.jpg` | https://www.srmist.edu.in/wp-content/uploads/2025/12/SRM-Institute-of-Science-Technology-Learn.-Leap.-Lead.webp |
 | `public/images/lab.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/03/Chemistry-research-149-1-1536x1024.jpg |
-| `public/images/servers.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/Techpark_CSE_ServerVOOL7387-e1649845729405.jpg |
 | `public/images/cohort.jpg` | https://www.srmist.edu.in/wp-content/uploads/2024/12/Admission-India-SRMIST-1-Copy.jpg |
+| `public/images/building.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/Building_UB_majestic_pic-6-1536x1024.jpg |
+| `public/images/classroom.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/06/classroom-students-.jpg |
+| `public/images/techpark.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/tech_park.jpg |
+| `public/images/volvo.jpg` | https://www.srmist.edu.in/wp-content/uploads/2026/10/SRMIST-and-Volvo-Group-Partners-to-Set-Up-Vehicle-Technology-Centre.png |
+| `public/images/semiconductor.jpg` | https://www.srmist.edu.in/wp-content/uploads/2026/11/srm-semiconductor-summit.jpg |
+| `public/images/srm-crest.png` | Official SRMIST crest, supplied by the project team |
 
-These images belong to SRMIST and are used for this concept only. No separate licence was obtained, and they should be cleared before any public use beyond the concept. The people shown in them are identifiable. The official logo is not used; the header uses a plain text wordmark.
+These images belong to SRMIST and are used for this concept only. No separate licence was obtained, and they should be cleared before any public use beyond the concept. The people shown in them are identifiable. The crest is SRMIST's trademark, so its use here also needs SRMIST's agreement beyond this concept.
 
 ## 9. Unresolved facts and access limitations
 
@@ -212,6 +217,7 @@ These images belong to SRMIST and are used for this concept only. No separate li
 | Other outbound links | Taken from official pages, not each opened individually. |
 | Fees | 385 of 429 entries list a fee. The rest show none. |
 | Duration | Values such as `1` were read as years, since most source entries use years. |
+| QS figure | Read from the first tab (2027) on the rankings page; that tab being the active one was not separately confirmed. |
 | Research figures | No reference period is given by the source. Shown with that caveat. |
 | Scholarship list | Taken from the Engineering page; other faculties may differ. |
 | "Latest Updates" popup | Found in markup, not opened and viewed. |

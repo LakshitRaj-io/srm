@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const KEY = "srm-campaign-30-dismissed";
 
 // The live site shows this campaign as a full-screen image on every visit. Here it is an
-// in-flow strip: real text, never blocks the page, and stays dismissed.
+// in-flow note below the main tasks: real text, never blocks the page, and stays dismissed.
 export function CampaignNotice() {
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -16,15 +16,15 @@ export function CampaignNotice() {
     try { localStorage.setItem(KEY, "1"); } catch {}
   };
   return (
-    <aside aria-label="Campaign" className="bg-gold text-ink">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-2 text-sm md:px-8">
+    <aside aria-label="Campaign" className="wrap py-8">
+      <div className="flex items-center justify-between gap-4 rounded-2xl bg-mist py-2 pl-5 pr-2">
         <p>
-          <strong>Alumni campaign:</strong> 30 days, 30 scholars, 30 global platforms.{" "}
-          <a className="font-semibold underline" href="https://alumni.srmist.edu.in/funds/view/2988.dz" target="_blank" rel="noopener noreferrer">
+          Alumni campaign: 30 days, 30 scholars, 30 global platforms.{" "}
+          <a className="link" href="https://alumni.srmist.edu.in/funds/view/2988.dz" target="_blank" rel="noopener noreferrer">
             Contribute<span className="sr-only"> on alumni.srmist.edu.in (opens in a new tab)</span> ↗
           </a>
         </p>
-        <button type="button" onClick={close} aria-label="Dismiss campaign notice" className="grid h-11 w-11 shrink-0 place-items-center text-lg font-bold hover:bg-ink hover:text-gold">×</button>
+        <button type="button" onClick={close} aria-label="Dismiss campaign notice" className="grid h-11 w-11 shrink-0 place-items-center rounded-lg text-xl hover:bg-white">×</button>
       </div>
     </aside>
   );

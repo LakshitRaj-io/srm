@@ -1,19 +1,55 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #0b1633;
-  --color-ink-soft: #47506a;
-  --color-paper: #fbfaf6;
-  --color-mist: #eceae2;
-  --color-blue: #0b3fa8;
-  --color-gold: #f6b90e;
-  --font-display: var(--font-archivo), Arial, sans-serif;
-  --font-serif: var(--font-newsreader), Georgia, serif;
+  --color-ink: #0f1f4b;
+  --color-ink-soft: #55607a;
+  --color-paper: #f4f6f9;
+  --color-mist: #dfe8f5;
+  --color-blue: #0b4ea2;
+  --color-gold: #f5b82e;
+  --font-display: var(--font-bricolage), Arial, sans-serif;
+  --font-sans: var(--font-instrument), Arial, sans-serif;
 }
 
-html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-display); }
-main:focus { outline: none; }
-:focus-visible { outline: 3px solid var(--color-blue); outline-offset: 2px; }
-.bg-ink :focus-visible, footer :focus-visible { outline-color: var(--color-gold); }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+  body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); font-size: 1.0625rem; line-height: 1.6; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; text-wrap: balance; }
+  main:focus { outline: none; }
+  :focus-visible { outline: 3px solid var(--color-blue); outline-offset: 2px; }
+  .on-dark :focus-visible { outline-color: var(--color-gold); }
+}
+
+@layer components {
+  .wrap { margin-inline: auto; max-width: 77.5rem; padding-inline: 1.25rem; }
+  .section { padding-block: clamp(4rem, 8vw, 7rem); }
+  .t-hero { font-size: clamp(3.25rem, 6.4vw, 5.75rem); line-height: 0.98; letter-spacing: -0.03em; }
+  .t-page { font-size: clamp(2.5rem, 4.8vw, 4.25rem); line-height: 1.02; letter-spacing: -0.03em; }
+  .t-section { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+  .t-statement { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.625rem, 3.2vw, 2.75rem); line-height: 1.18; letter-spacing: -0.02em; text-wrap: pretty; }
+  .lede { font-size: clamp(1.125rem, 1.5vw, 1.3rem); line-height: 1.5; max-width: 34rem; }
+  .measure { max-width: 40rem; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 3rem; border-radius: 0.625rem; padding: 0.6rem 1.25rem; font-weight: 600; transition: background-color 0.15s, color 0.15s; }
+  .btn-gold { background: var(--color-gold); color: var(--color-ink); }
+  .btn-gold:hover { background: #ffcb52; }
+  .btn-blue { background: var(--color-blue); color: #fff; }
+  .btn-blue:hover { background: var(--color-ink); }
+  .btn-line { box-shadow: inset 0 0 0 1.5px var(--color-ink); color: var(--color-ink); }
+  .btn-line:hover { background: var(--color-ink); color: #fff; }
+  .link { color: var(--color-blue); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .link:hover { color: var(--color-ink); }
+  .panel { background: #fff; border-radius: 1rem; }
+  .field { display: block; margin-top: 0.3rem; width: 100%; border-radius: 0.625rem; background: var(--color-paper); box-shadow: inset 0 0 0 1px #aab4c8; padding: 0.65rem 0.8rem; }
+
+  /* The site's one signature: a rising three-step edge, for Learn, Leap, Lead. */
+  .stepped { clip-path: polygon(0 30%, 33.34% 30%, 33.34% 15%, 66.67% 15%, 66.67% 0, 100% 0, 100% 100%, 0 100%); }
+  .rise { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d, 0ms); }
+}
+
+@keyframes rise { from { transform: translateY(2.5rem); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise { animation: none; }
+  .btn { transition: none; }
+}

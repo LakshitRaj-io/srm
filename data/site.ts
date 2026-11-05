@@ -7,23 +7,13 @@ export const INTL_PORTAL = "https://intlapplications.srmist.edu.in/";
 
 export type Fact = { value: string; label: string; source: string };
 
-export const homeFacts: Fact[] = [
-  { value: "1985", label: "Established", source: `${WWW}/` },
-  { value: "50,000+", label: "Students", source: `${WWW}/` },
-  { value: "3,200+", label: "Academicians", source: `${WWW}/` },
-  { value: "250+", label: "Acre green campus", source: `${WWW}/` },
-];
+// NIRF 2025 tab on the rankings page, read after the counters finished animating.
+export const nirf = [
+  ["University", "11"], ["Overall", "22"], ["Engineering", "14"], ["Medical", "18"], ["Pharmacy", "10"], ["Architecture", "18"], ["Management", "56"], ["Law", "25"],
+  ["Agriculture and Allied Sectors", "33"], ["Dental, Ramapuram", "8"], ["Dental, Kattankulathur", "39"], ["Research", "25"], ["Sustainability", "4"], ["Innovation band", "11-50"],
+] as const;
 
-export const recognition: Fact[] = [
-  {
-    value: "A++",
-    label: "NAAC grade, 4th cycle, valid 16.06.2024 to 15.06.2031",
-    source: `${WWW}/about-us/accreditations-and-rankings/`,
-  },
-  { value: "11", label: "NIRF 2025, University category", source: `${WWW}/about-us/accreditations-and-rankings/` },
-  { value: "14", label: "NIRF 2025, Engineering", source: `${WWW}/about-us/accreditations-and-rankings/` },
-  { value: "25", label: "NIRF 2025, Research", source: `${WWW}/about-us/accreditations-and-rankings/` },
-];
+export const accreditations = ["University Grants Commission", "Ministry of Education", "The Institution of Engineering and Technology", "Engineering Accreditation Commission of ABET", "National Board of Accreditation", "Indian Council of Agricultural Research"];
 
 export const researchFacts: Fact[] = [
   { value: "₹294+ Cr", label: "External funded projects", source: `${WWW}/research/` },
@@ -32,11 +22,11 @@ export const researchFacts: Fact[] = [
   { value: "1,100+", label: "Patents", source: `${WWW}/research/` },
 ];
 
-export const news = [
-  { title: "SRMIST and Volvo Group partner on a university-based vehicle technology centre", tag: "Industry" },
-  { title: "Semiconductor Summit 2026: ideas for India's semiconductor future", tag: "Research" },
-  { title: "SRMIST's Team Camber Racing claims national title at Formula Bharat 2026", tag: "Students" },
-  { title: "SRMIST student named Distinguished Winner at Apple's Swift Student Challenge 2026", tag: "Students" },
+export const news: { title: string; image?: string; alt?: string }[] = [
+  { title: "SRMIST and Volvo Group partner on a university-based vehicle technology centre", image: "/images/volvo.jpg", alt: "SRMIST and Volvo Group representatives at a ribbon-cutting ceremony" },
+  { title: "Semiconductor Summit 2026: ideas for India's semiconductor future", image: "/images/semiconductor.jpg", alt: "Speakers on stage at the SRM Semiconductor Summit 2026" },
+  { title: "SRMIST's Team Camber Racing claims national title at Formula Bharat 2026" },
+  { title: "SRMIST student named Distinguished Winner at Apple's Swift Student Challenge 2026" },
 ];
 
 export const applyRoutes = [

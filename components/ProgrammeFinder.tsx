@@ -23,65 +23,63 @@ export function ProgrammeFinder() {
   const counts = useMemo(() => Object.fromEntries(LEVELS.map((l) => [l, ALL.filter((p) => p.level.includes(l)).length])), []);
   const reset = () => { setQ(""); setLevel(""); setDuration(""); setLimit(PAGE); };
   const filtered = q || level || duration;
-  const field = "mt-1 w-full border-2 border-ink bg-paper px-3 py-2.5";
 
   return (
-    <div>
-      <form role="search" aria-label="Programmes" onSubmit={(e) => e.preventDefault()} className="grid gap-4 md:grid-cols-[2fr_1fr_1fr]">
+    <div className="grid items-start gap-6 lg:grid-cols-12 lg:gap-10">
+      <form role="search" aria-label="Programmes" onSubmit={(e) => e.preventDefault()} className="panel space-y-4 p-5 lg:sticky lg:top-24 lg:col-span-4">
         <div>
-          <label htmlFor="pf-q" className="font-semibold">Search by programme name</label>
-          <input id="pf-q" type="search" value={q} onChange={(e) => { setQ(e.target.value); setLimit(PAGE); }} placeholder="e.g. computer science, MBA, nursing" className={field} />
+          <label htmlFor="pf-q" className="font-semibold">Programme name</label>
+          <input id="pf-q" type="search" value={q} onChange={(e) => { setQ(e.target.value); setLimit(PAGE); }} placeholder="Try computer science or nursing" className="field" />
         </div>
         <div>
           <label htmlFor="pf-level" className="font-semibold">Level of study</label>
-          <select id="pf-level" value={level} onChange={(e) => { setLevel(e.target.value); setLimit(PAGE); }} className={field}>
+          <select id="pf-level" value={level} onChange={(e) => { setLevel(e.target.value); setLimit(PAGE); }} className="field">
             <option value="">All levels</option>
             {LEVELS.map((l) => (<option key={l} value={l}>{l} ({counts[l]})</option>))}
           </select>
         </div>
         <div>
           <label htmlFor="pf-duration" className="font-semibold">Duration</label>
-          <select id="pf-duration" value={duration} onChange={(e) => { setDuration(e.target.value); setLimit(PAGE); }} className={field}>
+          <select id="pf-duration" value={duration} onChange={(e) => { setDuration(e.target.value); setLimit(PAGE); }} className="field">
             <option value="">Any duration</option>
             {DURATIONS.map((c) => (<option key={c} value={c}>{c}</option>))}
           </select>
         </div>
+        {filtered ? <button type="button" onClick={reset} className="link">Clear search and filters</button> : null}
       </form>
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-b-2 border-ink pb-3">
-        <p role="status" aria-live="polite" className="font-display text-2xl font-bold">
-          {results.length} {results.length === 1 ? "programme" : "programmes"}
-          {level ? ` · ${level}` : ""}{duration ? ` · ${duration}` : ""}
+      <div className="lg:col-span-8">
+        <p role="status" aria-live="polite" className="font-display text-2xl font-semibold tracking-tight">
+          {results.length} {results.length === 1 ? "programme" : "programmes"}{level ? `, ${level}` : ""}{duration ? `, ${duration}` : ""}
         </p>
-        {filtered ? <button type="button" onClick={reset} className="font-semibold underline">Clear search and filters</button> : null}
-      </div>
 
-      {results.length === 0 ? (
-        <p className="py-10">No programmes match. Try a shorter search or clear a filter.</p>
-      ) : (
-        <ul className="divide-y divide-ink/20">
-          {results.slice(0, limit).map((p) => (
-            <li key={p.url} className="grid gap-2 py-4 md:grid-cols-[1fr_auto] md:items-center md:gap-8">
-              <div>
-                <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-lg font-semibold text-ink underline decoration-ink/30 underline-offset-4 hover:text-blue hover:decoration-blue">
-                  {p.name}<span className="sr-only"> (official page on srmist.edu.in, opens in a new tab)</span> <span aria-hidden="true">↗</span>
-                </a>
-                <p className="text-sm text-ink-soft">{p.level.join(", ") || "Level not listed"}</p>
-              </div>
-              <dl className="flex gap-6 text-sm">
-                {p.duration ? <div><dt className="text-ink-soft">Duration</dt><dd className="font-semibold">{p.duration}</dd></div> : null}
-                {p.fee ? <div><dt className="text-ink-soft">Annual fee</dt><dd className="font-semibold">₹{p.fee}</dd></div> : null}
-                {p.intake ? <div><dt className="text-ink-soft">Intake</dt><dd className="font-semibold">{p.intake}</dd></div> : null}
-              </dl>
-            </li>
-          ))}
-        </ul>
-      )}
-      {results.length > limit ? (
-        <button type="button" onClick={() => setLimit(limit + PAGE)} className="mt-6 border-2 border-ink px-5 py-3 font-bold hover:bg-ink hover:text-paper">
-          Show {Math.min(PAGE, results.length - limit)} more of {results.length - limit} remaining
-        </button>
-      ) : null}
+        {results.length === 0 ? (
+          <p className="mt-4">No programmes match. Try a shorter search or clear a filter.</p>
+        ) : (
+          <ul className="mt-4 space-y-2">
+            {results.slice(0, limit).map((p) => (
+              <li key={p.url} className="panel grid gap-2 px-5 py-4 md:grid-cols-[1fr_16rem] md:items-center md:gap-6">
+                <div>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="font-semibold leading-snug hover:text-blue hover:underline">
+                    {p.name}<span className="sr-only"> (official page on srmist.edu.in, opens in a new tab)</span> <span aria-hidden="true" className="text-blue">↗</span>
+                  </a>
+                  <p className="text-[0.9rem] text-ink-soft">{p.level.join(", ") || "Level not listed"}</p>
+                </div>
+                <dl className="grid grid-cols-3 gap-3 text-[0.9rem]">
+                  <div><dt className="text-ink-soft">Length</dt><dd className="font-medium">{p.duration ?? "Not listed"}</dd></div>
+                  <div><dt className="text-ink-soft">Per year</dt><dd className="font-medium">{p.fee ? `₹${p.fee}` : "Not listed"}</dd></div>
+                  <div><dt className="text-ink-soft">Intake</dt><dd className="font-medium">{p.intake ?? "Not listed"}</dd></div>
+                </dl>
+              </li>
+            ))}
+          </ul>
+        )}
+        {results.length > limit ? (
+          <button type="button" onClick={() => setLimit(limit + PAGE)} className="btn btn-line mt-5">
+            Show {Math.min(PAGE, results.length - limit)} more of {results.length - limit}
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }
