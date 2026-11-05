@@ -69,7 +69,7 @@ export function CatalogueWall() {
             <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight">{p.name}</p>
           </div>
           <div>
-            <dl className="mt-4 grid grid-cols-3 gap-2 text-[0.95rem]">
+            <dl className="mt-4 grid grid-cols-[auto_auto_auto] justify-between gap-2 text-[0.95rem]">
               <div><dt className="text-ink-soft">Length</dt><dd className="font-bold">{p.duration ?? "Not listed"}</dd></div>
               <div><dt className="text-ink-soft">Per year</dt><dd className="font-bold">{p.fee ? `₹${p.fee}` : "Not listed"}</dd></div>
               <div><dt className="text-ink-soft">Intake</dt><dd className="font-bold">{p.intake ?? "Not listed"}</dd></div>

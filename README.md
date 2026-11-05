@@ -1,5 +1,7 @@
 # SRMIST redesign concept
 
+Live: https://srm-silk-one.vercel.app
+
 An independent redesign concept based on SRM Institute of Science and Technology's public website. It is not the official website or application portal. It takes no applications, payments or enquiries; every such action links to an official SRMIST site.
 
 | Route | Purpose |
@@ -47,3 +49,4 @@ npx vercel --prod
 - `data/site.ts` holds facts, routes and contacts. Change a value and its `CHECKED` date together, and keep a source for every figure.
 - `data/programmes.json` holds the catalogue. Add verified entries here; the finder needs no code changes.
 - Images are in `public/images`. They are official SRMIST images, used here for a non-commercial concept; see the report for sources.
+- Themes are CSS variables at the top of `app/globals.css`. Dark is the default; visitors switch with the header toggle.

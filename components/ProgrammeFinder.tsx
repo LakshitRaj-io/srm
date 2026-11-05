@@ -71,7 +71,7 @@ export function ProgrammeFinder() {
                   </a>
                   <p className="text-[0.9rem] text-ink-soft">{p.level.join(", ") || "Level not listed"}</p>
                 </div>
-                <dl className="grid grid-cols-3 gap-3 text-[0.9rem]">
+                <dl className="grid grid-cols-[auto_auto_auto] justify-between gap-3 text-[0.9rem]">
                   <div><dt className="text-ink-soft">Length</dt><dd className="font-medium">{p.duration ?? "Not listed"}</dd></div>
                   <div><dt className="text-ink-soft">Per year</dt><dd className="font-medium">{p.fee ? `₹${p.fee}` : "Not listed"}</dd></div>
                   <div><dt className="text-ink-soft">Intake</dt><dd className="font-medium">{p.intake ?? "Not listed"}</dd></div>

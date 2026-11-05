@@ -1,6 +1,8 @@
 # SRMIST website audit: As-Is and To-Be
 
-To-Be screenshots show an **independent redesign concept**. It is not the official SRMIST website, and nothing here implies it has replaced the official site or application portal.
+Current live build: https://srm-silk-one.vercel.app. Design: professional SaaS style with light and dark themes. Sections 4 to 6 record the As-Is audit and fixes; section 10 records the UI/UX audit of the current build.
+
+To-Be screenshots show an **independent redesign concept**. It is not the official SRMIST website, and nothing here implies it has replaced the official site or application portal. At the project team's request, the on-site concept notices and on-page caveats were removed, so this report is now where those limits are recorded.
 
 ## 1. Scope, date, tools and viewports
 
@@ -99,10 +101,10 @@ Severity reflects impact on the task. Status is **Confirmed** or **Needs testing
 
 | Page | As-Is problem | User impact | To-Be fix |
 | --- | --- | --- | --- |
-| Homepage | Repeating overlay, no `h1`, tab-based menu | Blocked or slowed first task | Three direct journeys, dismissible in-flow notice, real menu controls |
-| Admissions | Promotion first, mixed year labels, hidden stale notices | Hard to find the correct route | Steps, 16 official routes, funding, international waivers, one label |
-| Academics | 72 pages, no count, unlabelled filters | Slow, inaccessible browsing | Search, labelled filters, live count, 429 entries, progressive loading |
-| Research | One long page, undated figures | Audiences must hunt | Three pathways, sourced figures with stated limits, centres directory |
+| Homepage | Repeating overlay, no `h1`, tab-based menu | Blocked or slowed first task | Scroll hero, three entry cards, dismissible in-flow notice, real menu controls |
+| Admissions | Promotion first, mixed year labels, hidden stale notices | Hard to find the correct route | Interactive landing stage, two-question Route Finder, steps, 16 official routes, funding, international waivers |
+| Academics | 72 pages, no count, unlabelled filters | Slow, inaccessible browsing | Landing stage that filters the finder, Catalogue Wall, labelled filters, live count, 429 entries |
+| Research | One long page, undated figures | Audiences must hunt | Interactive landing stage, three pathways, Research Orbit of ten centres, sourced figures |
 
 ## 6. As-Is and To-Be screenshots
 
@@ -173,6 +175,11 @@ As-Is was tested at 1440x900 with the overlay closed. axe finds only part of all
 | Console errors, broken images | None |
 | Finder: all, "computer", plus Ph.D, no match, clear | 429, 39, 2, 0, 429 |
 | Duration filter | Works ("1 year" returns 12) |
+| Academics stage to finder | Choosing Ph.D. filters the finder to 49 programmes |
+| Route Finder | India, Management & liberal arts returns 4 official links |
+| Research Orbit | Focusing a centre updates the detail panel |
+| Campus Film | Advances with scroll |
+| Reduced motion | Static hero and film; heading visible |
 | Menu button by keyboard | Enter opens, Tab enters the menu, Esc closes |
 | Campaign notice | Dismisses and stays dismissed after reload |
 | Homepage links | `/admissions`, `/academics`, `/research` |
@@ -196,11 +203,21 @@ Content was read from the pages in section 2 on 5 November 2026. Each fact in `d
 | `public/images/campus.jpg` | https://www.srmist.edu.in/wp-content/uploads/2025/12/SRM-Institute-of-Science-Technology-Learn.-Leap.-Lead.webp |
 | `public/images/lab.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/03/Chemistry-research-149-1-1536x1024.jpg |
 | `public/images/cohort.jpg` | https://www.srmist.edu.in/wp-content/uploads/2024/12/Admission-India-SRMIST-1-Copy.jpg |
-| `public/images/building.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/Building_UB_majestic_pic-6-1536x1024.jpg |
 | `public/images/classroom.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/06/classroom-students-.jpg |
-| `public/images/techpark.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/tech_park.jpg |
+| `public/images/servers.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/Techpark_CSE_ServerVOOL7387-e1649845729405.jpg |
 | `public/images/volvo.jpg` | https://www.srmist.edu.in/wp-content/uploads/2026/10/SRMIST-and-Volvo-Group-Partners-to-Set-Up-Vehicle-Technology-Centre.png |
 | `public/images/semiconductor.jpg` | https://www.srmist.edu.in/wp-content/uploads/2026/11/srm-semiconductor-summit.jpg |
+| `public/images/computers.jpg` | https://www.srmist.edu.in/wp-content/uploads/2024/11/banner.jpg |
+| `public/images/ncc.jpg` | https://www.srmist.edu.in/wp-content/uploads/2023/10/NCC-srm-3-1.jpg |
+| `public/images/ideathon.jpg` | https://www.srmist.edu.in/wp-content/uploads/2025/04/Inspira-%E2%80%93-Ideathon.jpg |
+| `public/images/techpark2.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/02/Techpark_Building4-scaled.jpeg |
+| `public/images/raman.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/05/sir-cv-raman-cover-1.png |
+| `public/images/library.jpg` | https://www.srmist.edu.in/wp-content/uploads/2024/08/IND_0404-scaled.jpg |
+| `public/images/pool.jpg` | https://www.srmist.edu.in/wp-content/uploads/2024/09/3-1.jpg |
+| `public/images/stadium.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/play-ground-1.png |
+| `public/images/hostel.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/Building_Hostel-and-Lake_0C6A7841-1-scaled.jpg |
+| `public/images/walkway.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/04/Location_Walkways_Hostels_VOOL0380_c-1.jpg |
+| `public/images/culture.jpg` | https://www.srmist.edu.in/wp-content/uploads/2022/03/54518158_2174715645958479_4938453087426707456_n-1536x1024.jpg |
 | `public/images/srm-crest.png` | Official SRMIST crest, supplied by the project team |
 
 These images belong to SRMIST and are used for this concept only. No separate licence was obtained, and they should be cleared before any public use beyond the concept. The people shown in them are identifiable. The crest is SRMIST's trademark, so its use here also needs SRMIST's agreement beyond this concept.
@@ -215,7 +232,9 @@ These images belong to SRMIST and are used for this concept only. No separate li
 | College, department, mode and type filters | Not carried over. Same reason. |
 | Portal deep links | **Not opened.** `applications.srmist.edu.in/btech` and `intlapplications.srmist.edu.in` returned HTTP 429 to our automated checks, with a notice saying the event was logged. Requests to the portal stopped there. This is a result of our testing, not a site defect. The links were copied from the official Admission India page, but they need a manual click-through. |
 | Other outbound links | Taken from official pages, not each opened individually. |
-| Fees | 385 of 429 entries list a fee. The rest show none. |
+| Fees | 385 of 429 entries list a fee. The rest show "Not listed". |
+| Placement figures | 10,969+ offers and 60 LPA highest CTC come from the Career Centre graphic for the 2026 batch, as on 09 Sep 2026. |
+| Background video | The official homepage film (S_xAJo_siHA) was tried and removed: it has burned-in text and player controls that clash with page titles. Landing stages use official photographs. |
 | Duration | Values such as `1` were read as years, since most source entries use years. |
 | QS figure | Read from the first tab (2027) on the rankings page; that tab being the active one was not separately confirmed. |
 | Research figures | No reference period is given by the source. Shown with that caveat. |
@@ -223,3 +242,20 @@ These images belong to SRMIST and are used for this concept only. No separate li
 | "Latest Updates" popup | Found in markup, not opened and viewed. |
 | Scope of testing | No real devices, no screen reader, no performance tooling. |
 | Deployment | **Not deployed.** See the README for Vercel steps. |
+
+## 10. UI/UX audit of the current build
+
+Method: Playwright with Chrome on the production build, in dark and light themes, on all 4 pages at 320x640, 390x844, 768x1024, 1024x768, 1440x900 and 1920x1080 (24 checks per theme). axe-core ran at 390 and 1440. Pages were also captured at real scroll positions, because sticky sections cannot be judged from full-page images.
+
+| Finding during audit | Severity | Status |
+| --- | --- | --- |
+| Photos stayed black: the wipe animation observed an element that was itself clipped | High | Fixed |
+| Landing page selector options were white on white | High | Fixed |
+| Official background film clashed with titles | Medium | Removed |
+| 18px overflow at 320, 10px at 1024 from the footer | Medium | Fixed |
+| Clipped text in headings, fees and footer columns | Medium | Fixed |
+| Programme links were 20px tall | Medium | Fixed |
+| Stacked sections cut off on short phones | Medium | Replaced by entry cards |
+| Text links inside sentences are under 24px tall | None | Allowed by WCAG 2.5.8 (inline exception) |
+
+Result before the last small fixes: 0 page overflow, 0 script errors and 0 axe violations in both themes, with all interactions passing. axe does not find every accessibility issue, and no real-device, screen reader or performance testing was done.
